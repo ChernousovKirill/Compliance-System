@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Termination_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Termination Reason</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Strategic Risk: Inactivity or Dormancy</fullName>
+                <default>false</default>
+                <label>Strategic Risk: Inactivity or Dormancy</label>
+            </value>
+            <value>
+                <fullName>Strategic Risk: Financially Unprofitable</fullName>
+                <default>false</default>
+                <label>Strategic Risk: Financially Unprofitable</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Business Closure/Insolvency</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Business Closure/Insolvency</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Fraudulent Activity/Documents</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Fraudulent Activity/Documents</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Sanction Lists</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Sanction Lists</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Inadequate AML Controls</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Inadequate AML Controls</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Non-compliance with our CDD</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Non-compliance with our CDD</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Violation of Agreement</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Violation of Agreement</label>
+            </value>
+            <value>
+                <fullName>Compliance Risk: Suspicious Activity: ML/TF</fullName>
+                <default>false</default>
+                <label>Compliance Risk: Suspicious Activity: ML/TF</label>
+            </value>
+            <value>
+                <fullName>Reputational Risk: Adverse Media</fullName>
+                <default>false</default>
+                <label>Reputational Risk: Adverse Media</label>
+            </value>
+            <value>
+                <fullName>Reputational Risk: Fraud or Criminal History</fullName>
+                <default>false</default>
+                <label>Reputational Risk: Fraud or Criminal History</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

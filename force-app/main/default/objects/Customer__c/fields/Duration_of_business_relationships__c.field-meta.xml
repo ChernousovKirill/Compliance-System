@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duration_of_business_relationships__c</fullName>
+    <externalId>false</externalId>
+    <label>Duration of business relationships with</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BLANK</fullName>
+                <default>false</default>
+                <label>BLANK</label>
+            </value>
+            <value>
+                <fullName>Applicant for Business</fullName>
+                <default>false</default>
+                <label>Applicant for Business</label>
+            </value>
+            <value>
+                <fullName>Less than 1 Year</fullName>
+                <default>false</default>
+                <label>Less than 1 Year</label>
+            </value>
+            <value>
+                <fullName>More than 1 Year</fullName>
+                <default>false</default>
+                <label>More than 1 Year</label>
+            </value>
+            <value>
+                <fullName>More than 5 years</fullName>
+                <default>false</default>
+                <label>More than 5 years</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

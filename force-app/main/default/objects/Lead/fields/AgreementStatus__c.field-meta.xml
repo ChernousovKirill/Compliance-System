@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgreementStatus__c</fullName>
+    <externalId>false</externalId>
+    <label>Agreement Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Direct</fullName>
+                <default>false</default>
+                <label>Direct</label>
+            </value>
+            <value>
+                <fullName>Reseller</fullName>
+                <default>false</default>
+                <label>Reseller</label>
+            </value>
+            <value>
+                <fullName>WL</fullName>
+                <default>false</default>
+                <label>WL</label>
+            </value>
+            <value>
+                <fullName>Sales Agent</fullName>
+                <default>false</default>
+                <label>Sales Agent</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

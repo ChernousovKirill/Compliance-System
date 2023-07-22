@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LinkedInRequired</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( CommunicationChannel__c, &apos;LinkedIn&apos;)
+ &amp;&amp;
+ISBLANK( LinkedIn__c )</errorConditionFormula>
+    <errorDisplayField>LinkedIn__c</errorDisplayField>
+    <errorMessage>LinkedInlink is required if Source = LinkedIn</errorMessage>
+</ValidationRule>

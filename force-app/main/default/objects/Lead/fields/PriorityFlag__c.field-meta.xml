@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PriorityFlag__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(
+				IF(
+								ISPICKVAL(Priority__c, &apos;Super High&apos;), &quot;/img/samples/flag_red.gif&quot;,
+								IF(
+												ISPICKVAL(Priority__c, &apos;High&apos;), &quot;/img/samples/flag_yellow.gif&quot;,
+												IF(
+																ISPICKVAL(Priority__c, &apos;Regulary&apos;), &quot;/img/samples/flag_green.gif&quot;,
+																IF(
+																				ISPICKVAL(Priority__c, &apos;Low&apos;),
+																				&quot;https://publicdomainvectors.org/tn_related/DodgerBlue%20Flag%20Waving.webp&quot;,
+																				&quot;https://static.thenounproject.com/png/1298805-200.png&quot;
+																)
+												)
+								)
+				),
+				&quot;&quot;, 25, 25
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Priority Flag</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

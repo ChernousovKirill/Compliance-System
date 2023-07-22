@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Does_customer_hold_license__c</fullName>
+    <externalId>false</externalId>
+    <label>Does customer hold license ?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BLANK</fullName>
+                <default>false</default>
+                <label>BLANK</label>
+            </value>
+            <value>
+                <fullName>Yes, licensed</fullName>
+                <default>false</default>
+                <label>Yes, licensed</label>
+            </value>
+            <value>
+                <fullName>Does not hold any license</fullName>
+                <default>false</default>
+                <label>Does not hold any license</label>
+            </value>
+            <value>
+                <fullName>License not required for this business field</fullName>
+                <default>false</default>
+                <label>License not required for this business field</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

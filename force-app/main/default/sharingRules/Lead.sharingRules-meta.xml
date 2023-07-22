@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Lead_cross_sharing2</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Lead cross sharing2</label>
+        <sharedTo>
+            <role>Supervisor1</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Supervisor2</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Supervisor_Cross_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Supervisor Cross Sharing</label>
+        <sharedTo>
+            <role>Supervisor2</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Supervisor1</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

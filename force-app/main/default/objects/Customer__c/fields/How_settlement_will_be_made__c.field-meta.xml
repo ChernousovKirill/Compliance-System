@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>How_settlement_will_be_made__c</fullName>
+    <externalId>false</externalId>
+    <label>How settlement will be made ?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BLANK</fullName>
+                <default>false</default>
+                <label>BLANK</label>
+            </value>
+            <value>
+                <fullName>Directly to the merchants bank account</fullName>
+                <default>false</default>
+                <label>Directly to the merchants bank account</label>
+            </value>
+            <value>
+                <fullName>Directly to the merchants bank account via Resellers account</fullName>
+                <default>false</default>
+                <label>Directly to the merchants bank account via Resellers account</label>
+            </value>
+            <value>
+                <fullName>To the Third party entity (parent entity/corporate shareholders entity)</fullName>
+                <default>false</default>
+                <label>To the Third party entity (parent entity/corporate shareholders entity)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

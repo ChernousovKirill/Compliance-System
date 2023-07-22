@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DontCreateNotNewLead</fullName>
+    <active>false</active>
+    <errorConditionFormula>ISNEW() 
+&amp;&amp;
+ NOT(ISPICKVAL(Status, &quot;New&quot;) )</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>a lead can only be created with the &quot;New&quot; status</errorMessage>
+</ValidationRule>

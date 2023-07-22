@@ -1,0 +1,93 @@
+<template>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{labelofmodalwindow}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={isterminatemodal}>
+                        <lightning-combobox name={terminateReasonLabel} label={terminateReasonLabel} value={selectedReasonOfTerminate} placeholder={placeholder}
+                                            options={terminateReasonOptions} onchange={handleChangeOfTerminationReason}></lightning-combobox>
+                                            <template if:true={showCommentBox}>
+                                                <lightning-input type = "text" 
+                                                                label ={labelOfOtherTerminationReason}
+                                                                onchange={handleOtherTerminationReason}
+                                                                required>
+                                                </lightning-input>
+                                            </template>
+                    </template>
+                    <template if:true={isrejectionmodal}>
+                        <lightning-combobox name={terminateRejectLabel} label={terminateRejectLabel} value={selectedReasonOfReject}
+                                            options={rejectReasonOptions} onchange={handleChangeOfRejectReason}></lightning-combobox>
+                                            <template if:true={showCommentBox}>
+                                                <lightning-input type = "text" 
+                                                                label ={labelOfOtherRejectionReason} 
+                                                                onchange={handleOtherRejectionReason}
+                                                                required>
+                                                </lightning-input>
+                                            </template>
+                    </template>
+                    <template if:true={issenttoapprovemodal}>
+                        <lightning-combobox name="selectApprover"
+                                            label="Select Approver"
+                                            placeholder="Select Approver"
+                                            options={approverOptions}
+                                            onchange={handleChangeApprover} >
+                        </lightning-combobox>
+                    </template>
+                    <template if:true={issenttoonboardingmodal}>
+                        <lightning-combobox name={labelOfSelectAMLOfficer}
+                                            label={labelOfSelectAMLOfficer}
+                                            options={amlOfficerOptions}
+                                            onchange={handleChangeAMLOfficer} >
+                        </lightning-combobox>
+                    </template>
+                    <template if:true={issentbackmodal}>
+                        <lightning-textarea name={labelOfComments}
+                                            label={labelOfComments}
+                                            onchange={handleChangeComments}>
+                        </lightning-textarea>
+                    </template>
+                    <template if:true={isanswercommentmodal}>
+                        <legend class="slds-form-element__legend slds-form-element__label">Approver:</legend>
+                        <lightning-input name="test" variant="label-hidden" disabled value={approvername}></lightning-input>
+                        <legend class="slds-form-element__legend slds-form-element__label">{labelOfComments}</legend>
+                        <lightning-textarea name={textofmessage} variant="label-hidden" disabled value={textofmessage}></lightning-textarea>
+                        <lightning-textarea name={labelOfAnswer}
+                                            label={labelOfAnswer}
+                                            onchange={handleChangeAnswer}>
+                        </lightning-textarea>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleClose} title="Cancel">{labelOfCancelButton}</button>
+                    <template if:true={isterminatemodal}>
+                        <button class="slds-button slds-button_brand" onclick={confirmTerminateRecord} disabled={confirmButtonDisabled} title={labelOfTerminateRecordButton}>{labelOfTerminateRecordButton}</button>
+                    </template>
+                    <template if:true={issenttoapprovemodal}>
+                        <button class="slds-button slds-button_brand" onclick={confirmSentToApprove} disabled={confirmButtonDisabled} title={labelOfSentToApproveButton}>{labelOfSentToApproveButton}</button>
+                    </template>
+                    <template if:true={isrejectionmodal}>
+                        <button class="slds-button slds-button_brand" onclick={confirmRejectRecord} disabled={confirmButtonDisabled} title={labelOfRecordRejectedButton}>{labelOfRecordRejectedButton}</button>
+                    </template>
+                    <template if:true={issenttoonboardingmodal}>
+                        <button class="slds-button slds-button_brand" onclick={confirmAMLOfficerForOnboarding} disabled={confirmButtonDisabled} title={labelOfAssignAMLOfficer}>{labelOfAssignAMLOfficer}</button>
+                    </template>
+                    <template if:true={issentbackmodal}>
+                        <button class="slds-button slds-button_brand" onclick={sendCommentToCompliance} disabled={confirmButtonDisabled} title={labelOfSendButton}>{labelOfSendButton}</button>
+                    </template>
+                    <template if:true={isanswercommentmodal}>
+                        <button class="slds-button slds-button_brand" onclick={sendAnswerToComment} disabled={confirmButtonDisabled} title={labelOfSendButton}>{labelOfSendButton}</button>
+                    </template>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

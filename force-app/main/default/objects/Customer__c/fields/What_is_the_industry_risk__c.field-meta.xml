@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_is_the_industry_risk__c</fullName>
+    <externalId>false</externalId>
+    <label>What is the industry risk?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BLANK</fullName>
+                <default>false</default>
+                <label>BLANK</label>
+            </value>
+            <value>
+                <fullName>High Risk [Gambling, Crypto, Dating, Forex, PI, MSBs, EMI etc.]</fullName>
+                <default>false</default>
+                <label>High Risk [Gambling, Crypto, Dating, Forex, PI, MSBs, EMI etc.]</label>
+            </value>
+            <value>
+                <fullName>Tangible Goods</fullName>
+                <default>false</default>
+                <label>Tangible Goods</label>
+            </value>
+            <value>
+                <fullName>Intangible Goods</fullName>
+                <default>false</default>
+                <label>Intangible Goods</label>
+            </value>
+            <value>
+                <fullName>Services</fullName>
+                <default>false</default>
+                <label>Services</label>
+            </value>
+            <value>
+                <fullName>Other Restricted Industry</fullName>
+                <default>false</default>
+                <label>Other Restricted Industry</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

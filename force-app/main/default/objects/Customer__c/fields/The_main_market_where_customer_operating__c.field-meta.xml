@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_main_market_where_customer_operating__c</fullName>
+    <externalId>false</externalId>
+    <label>The main market where customer operating</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BLANK</fullName>
+                <default>false</default>
+                <label>BLANK</label>
+            </value>
+            <value>
+                <fullName>EU and EEA countries</fullName>
+                <default>false</default>
+                <label>EU and EEA countries</label>
+            </value>
+            <value>
+                <fullName>Non-EU countries (CIS countries)</fullName>
+                <default>false</default>
+                <label>Non-EU countries (CIS countries)</label>
+            </value>
+            <value>
+                <fullName>Other (US, Latin America, Africa, Asia, Arabic)</fullName>
+                <default>false</default>
+                <label>Other (US, Latin America, Africa, Asia, Arabic)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

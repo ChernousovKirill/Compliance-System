@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ResellerType</fullName>
+    <active>true</active>
+    <errorConditionFormula>RecordType.DeveloperName = &apos;ResellerWL&apos;
+&amp;&amp;
+ISBLANK( Reseller__c )
+
+||
+
+RecordType.DeveloperName != &apos;ResellerWL&apos;
+&amp;&amp;
+NOT(ISBLANK(Reseller__c))</errorConditionFormula>
+    <errorDisplayField>Reseller__c</errorDisplayField>
+    <errorMessage>Reseller mandatory and available only for Reseller/WL Opportunity type</errorMessage>
+</ValidationRule>

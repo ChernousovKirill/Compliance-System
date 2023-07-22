@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SpecifyTextLossReason</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT( ISPICKVAL(Loss_Reason__c , &apos;&apos;) )
+&amp;&amp;
+ISBLANK(  SpecifyLossReason__c )</errorConditionFormula>
+    <errorDisplayField>SpecifyLossReason__c</errorDisplayField>
+    <errorMessage>Specify license/traffic/other</errorMessage>
+</ValidationRule>

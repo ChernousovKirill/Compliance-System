@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>RemovePrefixFromWebsite</name>
+        <label>Remove Prefix from Website</label>
+        <locationX>176</locationX>
+        <locationY>311</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Website</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Website</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <environments>Default</environments>
+    <formulas>
+        <name>Website</name>
+        <dataType>String</dataType>
+        <expression>IF(
+  LEFT({!$Record.Website}, 8) = &quot;https://&quot;,
+  RIGHT({!$Record.Website}, LEN({!$Record.Website}) - 8),
+  {!$Record.Website}
+)</expression>
+    </formulas>
+    <interviewLabel>Substring http {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Substring https:// from Website</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>RemovePrefixFromWebsite</targetReference>
+        </connector>
+        <filterFormula>(
+ISNEW()
+||
+ISCHANGED({!$Record.Website})
+)
+&amp;&amp;
+BEGINS({!$Record.Website}, &quot;http&quot;)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

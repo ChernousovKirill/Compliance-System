@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadsCustomCompactLayout</fullName>
+    <fields>Name</fields>
+    <fields>Company</fields>
+    <fields>Phone</fields>
+    <fields>MobilePhone</fields>
+    <fields>PriorityFlag__c</fields>
+    <label>Leads Custom Compact Layout</label>
+</CompactLayout>

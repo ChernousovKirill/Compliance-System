@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClosedWithoutLostReason</fullName>
+    <active>true</active>
+    <description>Cannot close oppty w/o Loss Reason</description>
+    <errorConditionFormula>ISPICKVAL(StageName, &apos;Closed Lost&apos;)
+&amp;&amp;
+ISPICKVAL(Loss_Reason__c, &apos;&apos;)</errorConditionFormula>
+    <errorDisplayField>Loss_Reason__c</errorDisplayField>
+    <errorMessage>Provide Loss Reason to Close Opportunity as Lost</errorMessage>
+</ValidationRule>

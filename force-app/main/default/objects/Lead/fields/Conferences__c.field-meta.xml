@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conferences__c</fullName>
+    <externalId>false</externalId>
+    <label>Conferences</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>LeadSource</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ICE</fullName>
+                <default>false</default>
+                <label>ICE</label>
+            </value>
+            <value>
+                <fullName>iGB</fullName>
+                <default>false</default>
+                <label>iGB</label>
+            </value>
+            <value>
+                <fullName>Money</fullName>
+                <default>false</default>
+                <label>Money</label>
+            </value>
+            <value>
+                <fullName>SBC</fullName>
+                <default>false</default>
+                <label>SBC</label>
+            </value>
+            <value>
+                <fullName>SiGMA CIS</fullName>
+                <default>false</default>
+                <label>SiGMA CIS</label>
+            </value>
+            <value>
+                <fullName>SiGMA Europe</fullName>
+                <default>false</default>
+                <label>SiGMA Europe</label>
+            </value>
+            <value>
+                <fullName>SiGMA Eurasia</fullName>
+                <default>false</default>
+                <label>SiGMA Eurasia</label>
+            </value>
+            <value>
+                <fullName>TES Sitges</fullName>
+                <default>false</default>
+                <label>TES Sitges</label>
+            </value>
+            <value>
+                <fullName>TES Prague</fullName>
+                <default>false</default>
+                <label>TES Prague</label>
+            </value>
+            <value>
+                <fullName>eTail UK</fullName>
+                <default>false</default>
+                <label>eTail UK</label>
+            </value>
+            <value>
+                <fullName>TechChill</fullName>
+                <default>false</default>
+                <label>TechChill</label>
+            </value>
+            <value>
+                <fullName>iGaming Germany</fullName>
+                <default>false</default>
+                <label>iGaming Germany</label>
+            </value>
+            <value>
+                <fullName>Canadian Gaming Summit</fullName>
+                <default>false</default>
+                <label>Canadian Gaming Summit</label>
+            </value>
+            <value>
+                <fullName>Brazilian iGaming Summit</fullName>
+                <default>false</default>
+                <label>Brazilian iGaming Summit</label>
+            </value>
+            <value>
+                <fullName>Bet Expo</fullName>
+                <default>false</default>
+                <label>Bet Expo</label>
+            </value>
+            <value>
+                <fullName>Gamescom</fullName>
+                <default>false</default>
+                <label>Gamescom</label>
+            </value>
+            <value>
+                <fullName>ITB Berlin</fullName>
+                <default>false</default>
+                <label>ITB Berlin</label>
+            </value>
+            <value>
+                <fullName>Payments solutions for the travel industry</fullName>
+                <default>false</default>
+                <label>Payments solutions for the travel industry</label>
+            </value>
+            <value>
+                <fullName>Casino Beats Summit</fullName>
+                <default>false</default>
+                <label>Casino Beats Summit</label>
+            </value>
+            <value>
+                <fullName>Internet Retailing Expo</fullName>
+                <default>false</default>
+                <label>Internet Retailing Expo</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>FITUR 2023</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>FITUR 2023</label>
+            </value>
+            <value>
+                <fullName>ICE London 2023</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ICE London 2023</label>
+            </value>
+            <value>
+                <fullName>Money2020</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Money2020</label>
+            </value>
+            <value>
+                <fullName>Sigma</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sigma</label>
+            </value>
+            <value>
+                <fullName>Sigma Malta 2022</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sigma Malta 2022</label>
+            </value>
+            <value>
+                <fullName>TES</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TES</label>
+            </value>
+            <value>
+                <fullName>TES 2022</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TES 2022</label>
+            </value>
+            <value>
+                <fullName>The Travel Convention by ABTA 2022</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>The Travel Convention by ABTA 2022</label>
+            </value>
+            <value>
+                <fullName>WTM 2022</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>WTM 2022</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>ICE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>iGB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Money</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>SBC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>SiGMA CIS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>SiGMA Europe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>SiGMA Eurasia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>TES Sitges</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>TES Prague</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>eTail UK</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>TechChill</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>iGaming Germany</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Canadian Gaming Summit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Brazilian iGaming Summit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Bet Expo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Gamescom</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>ITB Berlin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Payments solutions for the travel industry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Casino Beats Summit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Internet Retailing Expo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Conferences</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

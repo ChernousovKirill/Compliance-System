@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prohibited__c</fullName>
+    <externalId>false</externalId>
+    <label>Prohibited</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Prohibited</fullName>
+                <default>false</default>
+                <label>Prohibited</label>
+            </value>
+            <value>
+                <fullName>Non-prohibited</fullName>
+                <default>false</default>
+                <label>Non-prohibited</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

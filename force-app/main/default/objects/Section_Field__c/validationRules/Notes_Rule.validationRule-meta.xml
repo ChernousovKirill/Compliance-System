@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notes_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    Has_notes__c = true,
+    ISBLANK(Field_Notes__c)
+)</errorConditionFormula>
+    <errorDisplayField>Field_Notes__c</errorDisplayField>
+    <errorMessage>If checkbox Has notes equal true, Field Notes should be filled!</errorMessage>
+</ValidationRule>
