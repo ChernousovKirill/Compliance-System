@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isIndustryRequired</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  NOT(ISPICKVAL(Status, &quot;New&quot;)),
+  NOT(ISPICKVAL(Status, &quot;Meeting&quot;)),
+  ISPICKVAL(Industry, &quot;&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>Industry</errorDisplayField>
+    <errorMessage>Industry should be filled</errorMessage>
+</ValidationRule>

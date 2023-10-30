@@ -13,58 +13,106 @@
                         {section.order}. {section.label}
                     </button>
                 </h3><br/>
-                <!-- Start of view form -->
-                <template if:false={isEditFormAvailable}>
                     <div class="slds-grid slds-wrap slds-section__content form-section">
                         <template if:false={section.lastMonthTransactionSection}>
-                            <lightning-record-view-form record-id="a0IDK0000052GMj2AM" object-api-name="Customer__c">
-                                <div class="slds-grid slds-wrap slds-m-left_x-large">
-                                    <template for:each={section.fields} for:item="field">
-                                        <template if:false={field.isAdditionalDocument}>
-                                            <div key={field.labelOfField} class={section.stringOfColumnsSize} style="min-width: 300px;"> 
-                                                <div class="slds-m-vertical_x-small slds-p-horizontal_small">
-                                                    <template if:false={field.isHide}>
-                                                        <span class="slds-form-element__label" style="font-weight: bold;">{field.labelOfField}</span>
-                                                        <lightning-output-field variant="label-hidden" field-name={field.apiNameOfField}></lightning-output-field>
-                                                    </template>
-                                                </div>
-                                            </div>
+                                <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName} onsuccess={handleSuccess}>
+                                    <div class="slds-grid slds-wrap">
+                                        <template for:each={section.fields} for:item="field">
+                                            <template if:false={field.isAdditionalDocument}>
+                                                <template if:false={field.isHide}>
+                                                    <div key={field} class={section.stringOfColumnsSize} if:false={showEditField}>
+                                                        <template if:true={field.hasNotes}>
+                                                            <div class="slds-m-top_x-large slds-p-horizontal_small"><b>{field.notes}</b></div>
+                                                            <br/>
+                                                        </template>
+                                                        <div class="slds-grid slds-wrap slds-m-vertical_x-small slds-p-horizontal_small">
+                                                            <div class="slds-col slds-size_4-of-12">
+                                                                {field.labelOfField}
+                                                            </div>
+                                                            <template if:false={isEditFormAvailable}>
+                                                                <div class="slds-col slds-size_7-of-12">
+                                                                    <lightning-output-field variant="label-hidden" field-name={field.apiNameOfField}></lightning-output-field>
+                                                                </div>
+                                                                <template if:true={recordCanBeEdited}>
+                                                                    <template if:false={field.readOnly}>
+                                                                        <div class="slds-col slds-size_1-of-12">
+                                                                                <lightning-button-icon icon-name="utility:edit" size="x-small"  onclick={handleEditClick}></lightning-button-icon>
+                                                                        </div>
+                                                                    </template>
+                                                                </template>
+
+                                                            </template>
+                                                            <template if:true={isEditFormAvailable}>
+                                                                <div class="slds-col slds-size_8-of-12">
+                                                                    <lightning-input-field variant="label-hidden" disabled={field.readOnly} data-id={field.apiNameOfField} onchange={handleFieldChange} field-name={field.apiNameOfField}></lightning-input-field>
+                                                                </div>
+                                                            </template>
+                                                        </div>                                                        
+                                                    </div>
+                                                </template>
+                                            </template>
                                         </template>
-                                    </template>
-                                </div>
-                            </lightning-record-view-form>
-                        </template>
-                        <template if:true={section.bankAccountSection}>
-                            <div class="width:100%">
-                                <template for:each={section.listOfAttachments} for:item="attachment">
-                                    <div id={attachment.id} key={attachment.id}>
-                                        <div data-id="rowAttachment" data-key={attachment.id} data-name={attachment.title} role="option" class="slds-col">
-                                            <lightning-layout-item>
-                                                <c-attachment-visibility-panel attachment={attachment}
-                                                                            ondeleterecord={deleteAttachment}
-                                                                            nameofsection={section.label}>
-                                                </c-attachment-visibility-panel>
-                                            </lightning-layout-item>
-                                        </div>
                                     </div>
-                                </template>
-                            </div>
+                                </lightning-record-edit-form>
                         </template>
                         <template if:true={section.amlAssessmentSection}>
-                            <div class="slds-grid slds-wrap slds-m-left_x-large">
                                 <template for:each={section.fields} for:item="field">
                                     <template if:true={field.isAdditionalDocument}>
-                                        <div key={field.labelOfField} class={section.stringOfColumnsSize} style="min-width: 300px;"> 
-                                        <template if:false={field.isHide}>
-                                                <div class="slds-m-vertical_x-small slds-p-horizontal_small">
-                                                    <span class="slds-form-element__label" style="font-weight: bold;">{field.labelOfField}</span>
-                                                    <lightning-input type="checkbox" disabled="true" value={field.valueOfCheckbox} checked={field.valueOfCheckbox} ></lightning-input>
+                                        <div key={field.labelOfField} class={section.stringOfColumnsSize}> 
+                                            <div class="slds-grid slds-wrap slds-m-vertical_x-small slds-p-horizontal_small">
+                                                <div class="slds-col slds-size_4-of-12">
+                                                    {field.labelOfField}
                                                 </div>
-                                            </template>
+                                                <template if:false={isEditFormAvailable}>
+                                                    <div class="slds-col slds-size_7-of-12">
+                                                        <lightning-input type="checkbox" checked={field.valueOfCheckbox} disabled="true" variant="label-hidden" name="checkboxInput"></lightning-input>
+                                                    </div>
+                                                    <template if:true={recordCanBeEdited}>
+                                                        <template if:false={field.readOnly}>
+                                                            <div class="slds-col slds-size_1-of-12">
+                                                                <lightning-button-icon icon-name="utility:edit" size="x-small"  onclick={handleEditClick}></lightning-button-icon>
+                                                            </div>
+                                                        </template>
+                                                    </template>
+
+                                                </template>
+                                                <template if:true={isEditFormAvailable}>
+                                                    <div class="slds-col slds-size_8-of-12">
+                                                        <lightning-input type="checkbox" data-label={field.labelOfField} data-isadditionaldocument={field.isAdditionalDocument} data-idofdocument={field.idOfAdditionalDocument} data-checkbox={field.areFieldsCheckbox} checked={field.valueOfCheckbox} data-id={field.apiNameOfField} variant="label-hidden" onchange={handleFieldChange} name="checkboxInput"></lightning-input>
+                                                    </div>
+                                                </template>
+                                            </div>
                                         </div>
                                     </template>
                                 </template>
-                            </div>
+                                <template if:false={isAMLRiskAssessmentCheckboxHide}>
+                                    <lightning-button class="slds-align_left slds-m-top_medium slds-p-horizontal_small" label={labelOfAddDocumentButton} onclick={handleOpenAddNewDocumentModal}></lightning-button>
+                                </template>
+                                <template if:true={showNewDocumentModalWindow}>
+                                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                        <div class="slds-modal__container">
+                                            <header class="slds-modal__header">
+                                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseAddNewDocumentModal}>
+                                                    <lightning-icon icon-name="utility:close"
+                                                        alternative-text="close"
+                                                        variant="inverse"
+                                                        size="small" ></lightning-icon>
+                                                    <span class="slds-assistive-text">Close</span>
+                                                </button>
+                                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{labelOfAddDocumentButton}</h2>
+                                            </header>
+                                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                        <lightning-input onchange={handleChangeDocumentLabel} label={labelOfAdditionalDocumentField} name="labelInput"></lightning-input><br/>
+                                                        <lightning-input type="checkbox" label={labelOfAdditionalDocumentValue} onchange={handleChangeDocumentValue} name="checkboxInput"></lightning-input>
+                                                </div>
+                                            <footer class="slds-modal__footer">
+                                                <button class="slds-button slds-button_neutral" onclick={handleCloseAddNewDocumentModal} title="Cancel">{labelOfCancelButtom}</button>
+                                                <button class="slds-button slds-button_brand"  onclick={addDocument} title="Save">{labelOfSaveButton}</button>
+                                            </footer>
+                                        </div>
+                                    </section>
+                                    <div class="slds-backdrop slds-backdrop_open"></div>
+                                </template>
                         </template>
                         <template if:true={section.lastMonthTransactionSection}>
                             <div class="slds-grid slds-wrap slds-m-left_x-large">
@@ -81,147 +129,6 @@
                             </div>
                         </template>
                     </div>
-                </template>
-                <!-- End of view form -->
-
-
-                <!-- Start of edit form -->
-                <template if:true={isEditFormAvailable}>
-                    <div class="slds-grid slds-wrap slds-section__content form-section">
-                        <template for:each={section.fields} for:item="field">
-                            <div key={section.label} class={section.stringOfColumnsSize}>
-                                <template if:true={field.areFieldsText}>
-                                    <template if:false={field.isHide}>
-                                        <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                        <lightning-input class="slds-m-left_x-large" data-id={field.apiNameOfField} style="max-width:300px;" disabled={field.readOnly} varian="label-hidden" value={field.defaultValue} onchange={handleFieldChange}></lightning-input>
-                                    </template>
-                                </template>
-                                <template if:true={field.areFieldsPicklist}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <lightning-combobox
-                                        class="slds-m-left_x-large"
-                                        style="max-width:300px;"
-                                        name={field.labelOfField}
-                                        data-id={field.apiNameOfField}
-                                        data-section={section.label}
-                                        variant="label-hidden"
-                                        options={field.options}
-                                        value={field.defaultValue}
-                                        disabled={field.readOnly}
-                                        onchange={handleFieldChange}></lightning-combobox> 
-                                </template>
-                                <template if:true={field.areFieldsCheckbox}>
-                                    <template if:false={field.isHide}>
-                                        <template if:true={field.hasNotes}>
-                                            <div class="slds-m-top_x-large slds-m-left_x-large"><b>{field.notes}</b></div>
-                                            <br/>
-                                        </template>
-                                        <div class="slds-form-element slds-m-left_x-large slds-m-top_large">
-                                            <label class="slds-checkbox">
-                                                <input type="checkbox" value={field.valueOfCheckbox} data-label={field.labelOfField} data-isadditionaldocument={field.isAdditionalDocument} data-idofdocument={field.idOfAdditionalDocument} data-checkbox={field.areFieldsCheckbox} checked={field.valueOfCheckbox} data-id={field.apiNameOfField} onchange={handleFieldChange} />
-                                                <span class="slds-checkbox_faux"></span>
-                                                <span class="slds-form-element__label" style="font-weight: bold;">{field.labelOfField}</span>
-                                            </label>
-                                        </div>
-                                    </template>
-                                </template>
-                                <template if:true={field.areFieldsReference}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <c-dynamic-lookup-for-search field={field}
-                                    onvalueselected={handleSelectLookup}
-                                    recordid={recordId}
-                                    ></c-dynamic-lookup-for-search>
-                                </template>
-                                <template if:true={field.areFieldsTextarea}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <lightning-textarea class="slds-m-around_x-large" data-id={field.apiNameOfField} style="max-width:300px;" name={field.labelOfField} variant="label-hidden" onchange={handleFieldChange}></lightning-textarea>
-                                </template>
-                                <template if:true={field.areFieldsListBox}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <lightning-dual-listbox class="slds-m-left_x-large"
-                                                            data-id={field.apiNameOfField}
-                                                            variant="label-hidden"
-                                                            source-label="Available"
-                                                            selected-label="Selected"
-                                                            options={field.options}
-                                                            value={optionsOfBlockedCountries}
-                                                            onchange={handleFieldChange}
-                                                            disable-reordering>
-                                    </lightning-dual-listbox>                            
-                                </template>                      
-                                <template if:true={field.areFieldsCurrency}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <lightning-input  class="slds-m-left_x-large" disabled={field.readOnly} data-id={field.apiNameOfField} style="max-width:300px;" variant="label-hidden" type="number" step=".01" formatter="currency"  value={field.defaultValue} onchange={handleFieldChange}>
-                                    </lightning-input>                        
-                                </template>
-                                <template if:true={field.areFieldsNumber}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <lightning-input  class="slds-m-left_x-large" disabled={field.readOnly} data-id={field.apiNameOfField} style="max-width:300px;" variant="label-hidden" type="number" value={field.defaultValue} onchange={handleFieldChange}>
-                                    </lightning-input>                        
-                                </template>
-                                <template if:true={field.areFieldsDate}>
-                                    <legend class="slds-form-element__legend slds-form-element__label slds-m-left_x-large">{field.labelOfField}</legend>
-                                    <lightning-input class="slds-m-left_x-large" data-id={field.apiNameOfField} disabled={field.readOnly} style="max-width:300px;" value={field.defaultValue} type="date" varian="label-hidden" onchange={handleFieldChange}></lightning-input>                        
-                                </template>
-                            </div>
-                        </template> 
-                    </div>
-
-                    <template if:true={section.amlAssessmentSection}>
-                        <template if:false={isAMLRiskAssessmentCheckboxHide}>
-                            <lightning-button class="slds-align_absolute-center slds-m-top_medium" label={labelOfAddDocumentButton} onclick={handleOpenAddNewDocumentModal}></lightning-button>
-                        </template>
-                        <template if:true={showNewDocumentModalWindow}>
-                            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                                <div class="slds-modal__container">
-                                    <header class="slds-modal__header">
-                                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseAddNewDocumentModal}>
-                                            <lightning-icon icon-name="utility:close"
-                                                alternative-text="close"
-                                                variant="inverse"
-                                                size="small" ></lightning-icon>
-                                            <span class="slds-assistive-text">Close</span>
-                                        </button>
-                                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{labelOfAddDocumentButton}</h2>
-                                    </header>
-                                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                                                <lightning-input onchange={handleChangeDocumentLabel} label={labelOfAdditionalDocumentField} name="labelInput"></lightning-input><br/>
-                                                <lightning-input type="checkbox" label={labelOfAdditionalDocumentValue} onchange={handleChangeDocumentValue} name="checkboxInput"></lightning-input>
-                                        </div>
-                                    <footer class="slds-modal__footer">
-                                        <button class="slds-button slds-button_neutral" onclick={handleCloseAddNewDocumentModal} title="Cancel">{labelOfCancelButtom}</button>
-                                        <button class="slds-button slds-button_brand"  onclick={addDocument} title="Save">{labelOfSaveButton}</button>
-                                    </footer>
-                                </div>
-                            </section>
-                            <div class="slds-backdrop slds-backdrop_open"></div>
-                        </template>
-                    </template>
-                    <template if:true={section.bankAccountSection}>
-                        <template for:each={section.listOfAttachments} for:item="attachment">
-                            <div id={attachment.id} key={attachment.id}>
-                                <div data-id="rowAttachment" data-key={attachment.id} data-name={attachment.title} role="option" class="slds-col">
-                                    <lightning-layout-item>
-                                        <c-attachment-visibility-panel attachment={attachment}
-                                                                    ondeleterecord={deleteAttachment}
-                                                                    nameofsection={section.label}>
-                                                                    
-                                        </c-attachment-visibility-panel>
-                                    </lightning-layout-item>
-                                </div>
-                            </div>
-                        </template>
-                        <c-file-upload-panel 
-                                            listofuploadedattachments={listofuploadedattachments}
-                                            onattachmentchange={handleAttachmentUpload}
-                                            ondeleterecord={deleteAttachment}
-                                            recordid={recordId}
-                                            typeofattachment={section.label}
-                                            >
-                        </c-file-upload-panel>
-                    </template>
-                </template>
-                <!-- End of edit form -->
             </div>
         </template>
         <template if:true={isEditFormAvailable}>

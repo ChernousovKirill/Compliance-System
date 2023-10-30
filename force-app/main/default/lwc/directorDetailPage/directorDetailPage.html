@@ -1,0 +1,56 @@
+<template>
+    <lightning-card>
+        <template for:each={sections} for:item="section">
+            <div key={section} class="slds-section slds-is-open" data-title={section.label}
+                title={section.label}>
+                <h3 class="slds-section__title">
+                    <button aria-controls="expando-unique-id" title={section.label}
+                        class="slds-button slds-section__title-action"
+                        onclick={toggleSection}>
+                        <lightning-icon icon-name="utility:switch" size="x-small"
+                                        class="slds-section__title-action-icon slds-button__icon_left"
+                                        alternative-text="button icon"></lightning-icon>
+                        {section.label}
+                    </button>
+                </h3>
+            </div>
+            <div key={section.label} >
+                <c-detail-fields-component key={field.apiNameOfField}
+                                        field={field}
+                                        section={section}
+                                        onchangefield={handleChangeDirectorFields}
+                                        objectapiname={objectApiName}
+                                        recordid={recordId}></c-detail-fields-component>      
+            </div>
+
+            <template if:true={showIndividualFields}>
+                <c-document-section key={section.label}
+                                    section={section.label}
+                                    documents={listOfIndividualDocuments}
+                                    labelfordocuments="Documents"
+                                    ishidedocumenttype={isHideDocumentType}
+                                    onchangedocument={handleChangeDocumentValue}
+                                    onsavedocument={handleSaveDocument}></c-document-section>
+            </template>
+
+            <template if:true={showCorporateFields}>
+
+                <c-document-section key={section.label}
+                                    section={section.label}
+                                    documents={listOfCorporateDocuments}
+                                    labelfordocuments="Corporate Documents"
+                                    ishidedocumenttype={isHideDocumentType}
+                                    onchangedocument={handleChangeDocumentValue}
+                                    onsavedocument={handleSaveDocument}></c-document-section>
+
+            </template>
+
+        </template>
+        <template if:true={isSaveButtonAvailable}>
+            <div class="slds-border_top slds-align_absolute-center slds-p-top_medium">
+                <button class="slds-button slds-button_neutral" onclick={handleCancelEditForm} title="Cancel">{labelOfCancelButtom}</button>
+                <button class="slds-button slds-button_brand" onclick={handleSaveDirectorChanges} title="Save">{labelOfSaveButton}</button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

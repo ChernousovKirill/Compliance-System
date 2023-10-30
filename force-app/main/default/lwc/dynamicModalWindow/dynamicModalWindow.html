@@ -42,11 +42,20 @@
                                             onchange={handleChangeApprover} >
                         </lightning-combobox>
                     </template>
-                    <template if:true={issenttoonboardingmodal}>
-                        <lightning-combobox name={labelOfSelectAMLOfficer}
-                                            label={labelOfSelectAMLOfficer}
-                                            options={amlOfficerOptions}
+                    <template if:true={isassignofficermodal}>
+                        <lightning-combobox name="selectAMLOfficer"
+                                            label="Select AML Officer"
+                                            placeholder="Select AML Officer"
+                                            options={listOfCompliance}
                                             onchange={handleChangeAMLOfficer} >
+                        </lightning-combobox>
+                    </template>
+                    <template if:true={iscopydatamodal}>
+                        <lightning-combobox name="selectWebsite"
+                                            label="Select Website"
+                                            placeholder="Select Website"
+                                            options={websiteOptions}
+                                            onchange={handleChangeWebsite} >
                         </lightning-combobox>
                     </template>
                     <template if:true={issentbackmodal}>
@@ -65,6 +74,31 @@
                                             onchange={handleChangeAnswer}>
                         </lightning-textarea>
                     </template>
+                    <template if:true={isuploadfilemodal}>
+                        <template for:each={listOfUploadedAttachments} for:item="attachment">
+                            <div id={attachment.id} key={attachment.id}>
+                                <div data-id="rowAttachment" data-key={attachment.id} data-name={attachment.title} role="option" class="slds-col">
+                                    <lightning-layout-item>
+                                        <c-attachment-visibility-panel attachment={attachment}
+                                                                    ondeleterecord={deleteAttachment}
+                                                                    onchangetype={handleChaneTypeOfAttachment}
+                                                                    recordid={recordid}
+                                                                    optionsoftype={optionsOfType}
+                                                                    showtypepicklist={isTypeAvailable}
+                                                                    >
+                                        </c-attachment-visibility-panel>
+                                    </lightning-layout-item>
+                                </div>
+                            </div>
+                        </template>
+                        <c-file-upload-panel 
+                                            listofuploadedattachments={listOfUploadedAttachments}
+                                            onattachmentchange={handleAttachmentUpload}
+                                            ondeleterecord={deleteAttachment}
+                                            recordid={recordid}
+                                            >
+                        </c-file-upload-panel>
+                    </template>
                 </div>
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_neutral" onclick={handleClose} title="Cancel">{labelOfCancelButton}</button>
@@ -77,14 +111,20 @@
                     <template if:true={isrejectionmodal}>
                         <button class="slds-button slds-button_brand" onclick={confirmRejectRecord} disabled={confirmButtonDisabled} title={labelOfRecordRejectedButton}>{labelOfRecordRejectedButton}</button>
                     </template>
-                    <template if:true={issenttoonboardingmodal}>
-                        <button class="slds-button slds-button_brand" onclick={confirmAMLOfficerForOnboarding} disabled={confirmButtonDisabled} title={labelOfAssignAMLOfficer}>{labelOfAssignAMLOfficer}</button>
-                    </template>
                     <template if:true={issentbackmodal}>
                         <button class="slds-button slds-button_brand" onclick={sendCommentToCompliance} disabled={confirmButtonDisabled} title={labelOfSendButton}>{labelOfSendButton}</button>
                     </template>
                     <template if:true={isanswercommentmodal}>
                         <button class="slds-button slds-button_brand" onclick={sendAnswerToComment} disabled={confirmButtonDisabled} title={labelOfSendButton}>{labelOfSendButton}</button>
+                    </template>
+                    <template if:true={iscopydatamodal}>
+                        <button class="slds-button slds-button_brand" onclick={handleCopyWebsiteData} disabled={confirmButtonDisabled} title="Copy Data">Copy Data</button>
+                    </template>
+                    <template if:true={isuploadfilemodal}>
+                        <button class="slds-button slds-button_brand" onclick={handleSaveUploadedFile} title="Save">Save</button>
+                    </template>
+                    <template if:true={isassignofficermodal}>
+                        <button class="slds-button slds-button_brand" onclick={confirmAssignOfficerAndStartOnboarding} title="Start Onboarding">Start Onboarding</button>
                     </template>
                 </footer>
             </div>

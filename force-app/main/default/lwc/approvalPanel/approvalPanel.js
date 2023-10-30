@@ -12,6 +12,7 @@ import terminateButton from '@salesforce/label/c.Terminate_Button';
 import disconnectButton from '@salesforce/label/c.Disconnect_Button';
 import terminateRecordButton from '@salesforce/label/c.Terminate_Record';
 import sentToApproveButton from '@salesforce/label/c.Sent_to_Approve';
+import labelOfOnboardingStarted from '@salesforce/label/c.Onboarding_started';
 import labelOfRecordApproved from '@salesforce/label/c.Record_approved';
 import labelOfRejectModal from '@salesforce/label/c.Reject_Record'
 import labelOfStatusChangedToOnHold from '@salesforce/label/c.Status_changed_to_On_Hold';
@@ -20,8 +21,8 @@ import labelOfDisconnectionHasBeenStarted from '@salesforce/label/c.Disconnectio
 import labelOfStatusChangedToActive from '@salesforce/label/c.Status_changed_to_Active';
 import labelOfRecordWasTerminated from '@salesforce/label/c.Record_was_terminated';
 import labelOfStartOnboardingButton from '@salesforce/label/c.Start_Onboarding_Button';
+import labelOfAssignOfficerButton from '@salesforce/label/c.Assign_AML_Officer';
 import labelOfShowAMLFormButton from '@salesforce/label/c.Show_AML_Form_Button';
-import labelOfEditButton from '@salesforce/label/c.Edit_Button';
 import labelOfSentToApproveButton from '@salesforce/label/c.Sent_To_Approve_Button';
 import labelOfOnHoldButton from '@salesforce/label/c.On_Hold_Button';
 import labelOfSuspendButton from '@salesforce/label/c.Suspend_Button';
@@ -38,6 +39,7 @@ import labelOfAnswerToCommentButton from '@salesforce/label/c.Answer_to_comment'
 export default class ApporvalPanel extends LightningElement {
 
     @api recordId;
+    @api objectApiName;
     @api isComplete = false;
     @api officerHasUnansweredComments = false;
     @api nameOfApprover;
@@ -45,8 +47,12 @@ export default class ApporvalPanel extends LightningElement {
     @api numberOfUnansweredComments;
     @api nameOfCustomer;
 
+    @track isCustomerApiName = false;
+    @track isWebsiteApiName = false;
+
     @track statusOfCustomer;
     @track newCustomer = false;
+    @track displayStartOnboardingButton = false;
     @track isHadProfileOfHeadCompliance = false;
     @track onboardingCustomer = false;
     @track sentToApprove = false;
@@ -60,12 +66,13 @@ export default class ApporvalPanel extends LightningElement {
     @track showTerminateModal = false;
     @track showRejectionModal = false;
     @track showSentToApproveModal = false;
-    @track showSentToOnboardingModal = false;
     @track showRejectionModal = false;
     @track showSendBackWithCommentModal = false;
     @track showAnswerToCommentModal = false;
     @track showModalWindow = false;
     @track showAMLForm = false;
+    @track showCopyWebsiteDatatModal = false;
+    @track showAssignOfficerModal = false;
 
     @track nameoffield = '';
 
@@ -80,8 +87,8 @@ export default class ApporvalPanel extends LightningElement {
     @api labelOfDisconnectButton = disconnectButton;
     @api labelOfTerminateOrDisconnectButton;
     @api labelOfStartOnboarding = labelOfStartOnboardingButton;
+    @api labelOfAssignOfficer = labelOfAssignOfficerButton;
     @api labelOfShowAMLForm = labelOfShowAMLFormButton;
-    @api labelOfEdit = labelOfEditButton;
     @api labelOfSentToApprove = labelOfSentToApproveButton;
     @api labelOfOnHold = labelOfOnHoldButton;
     @api labelOfSuspend = labelOfSuspendButton;
@@ -234,6 +241,28 @@ export default class ApporvalPanel extends LightningElement {
           });
     }
 
+    handleStartOnboarding() {
+      console.log('test');
+      const fields = {};
+      fields.Id = this.recordId;
+      fields['Status__c'] = 'Onboarding'; 
+      fields['Onboarding_Officer__c'] = this.userId;
+      const recordInput = { fields };
+  
+      updateRecord(recordInput)
+        .then(() => {
+          this.showToast('', labelOfOnboardingStarted, 'Success');
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        })
+        .catch(error => {
+          this.showToast('Error', labelOfErrorShowToast, 'Error');
+          saveLWCLog({ id : this.recordid,
+            description: JSON.stringify(error)})
+        });
+  }
+
     changeToTerminationOrDisconnect() {
         const fields = {};
 
@@ -280,16 +309,22 @@ export default class ApporvalPanel extends LightningElement {
       this.labelofmodalwindow = sentToApproveButton;
     }
 
-    openStartOnboardingModal() {
-      this.showModalWindow = true;
-      this.showSentToOnboardingModal = true;
-      this.labelofmodalwindow = labelOfStartOnboardingButton;
-    }
-
     openSendBackWithCommentsModal() {
       this.showModalWindow = true;
       this.showSendBackWithCommentModal = true;
       this.labelofmodalwindow = sendBackWithComment;
+    }
+
+    openCopyWebsiteDataModal() {
+      this.showModalWindow = true;
+      this.showCopyWebsiteDatatModal = true;
+      this.labelofmodalwindow = 'Copy Data';
+    }
+
+    openAssignOfficerModal() {
+      this.showModalWindow = true;
+      this.showAssignOfficerModal = true;
+      this.labelofmodalwindow = this.labelOfAssignOfficer;
     }
 
     openAnswerToCommentModal() {
@@ -320,7 +355,6 @@ export default class ApporvalPanel extends LightningElement {
         this.showTerminateModal = showModalWindow;
         this.showSentToApproveModal = showModalWindow;
         this.showRejectionModal = showModalWindow;
-        this.showSentToOnboardingModal = showModalWindow;
         this.showModalWindow = showModalWindow;
         this.showAMLForm = showModalWindow;
       }
@@ -363,6 +397,18 @@ export default class ApporvalPanel extends LightningElement {
         return this.onboardingOfficerOfCustomer = this.onboardingOfficerId == this.userId ? true : false;
     }
 
+    get isCustomerObject() {
+      return this.isCustomerApiName = this.objectApiName == 'Customer__c'? true : false;
+    }
+
+    get isWebsiteObject() {
+      return this.isWebsiteApiName = this.objectApiName == 'Website__c' ? true : false;
+    }
+
+    get isStartOnboardingVisible() {
+      return this.displayStartOnboardingButton = this.statusOfCustomer == 'New' || this.statusOfCustomer == 'Uploading Documents' || this.statusOfCustomer == 'Ready for Onboarding'  ? true : false;
+    }
+
     get isSystemAdmin() {
         checkIfUserIsSystemAdministrator({
         }).then((result) => {
@@ -384,7 +430,6 @@ export default class ApporvalPanel extends LightningElement {
         } else {
           this.isHadProfileOfHeadCompliance = false;
         }
-        console.log('this.isHadProfileOfHeadCompliance ' + this.isHadProfileOfHeadCompliance);
       }).catch((error) => {
           this.error = error;
           console.log(error);
@@ -400,15 +445,5 @@ export default class ApporvalPanel extends LightningElement {
       });
       this.dispatchEvent(event);
   }
-
-
-  handleEditClick() {
-    const isEditFormAvailable = true;
-    const editEvent = new CustomEvent('editclick', {
-      detail: { value: isEditFormAvailable },
-    });
-    window.dispatchEvent(editEvent);
-  }
-
 
 }

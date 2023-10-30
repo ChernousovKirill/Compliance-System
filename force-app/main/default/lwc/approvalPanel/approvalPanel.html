@@ -1,66 +1,91 @@
 <template>
-    <lightning-button-group class="slds-float_right">
-        <template if:true={isHeadOfCompliance}>
-            <lightning-button label={labelOfStartOnboarding} onclick={openStartOnboardingModal}></lightning-button>
-            <lightning-button label={labelOfReject} onclick={openRejectionModal} variant="destructive-text"></lightning-button>
-        </template>
-        <template if:true={isOnboardingOfficer}>
-            <template if:true={isOnboardingCustomer}>
-                <lightning-button label={labelOfShowAMLForm} onclick={openAmlRiskScoreTool}></lightning-button>
-                <lightning-button label={labelOfEdit} onclick={handleEditClick}></lightning-button>
-                <template if:true={isComplete}>
-                    <template if:true={officerHasUnansweredComments}>
-                        <lightning-button label={labelOfAnswerToComment} onclick={openAnswerToCommentModal}></lightning-button>
-                    </template>
-                    <template if:false={officerHasUnansweredComments}>
-                        <lightning-button label={labelOfSentToApprove} onclick={openSentToApproveModal}></lightning-button>
+    <template if:true={isCustomerObject}>
+        <lightning-button-group class="slds-float_right">
+            <template if:true={isStartOnboardingVisible}>
+                <lightning-button label={labelOfStartOnboarding} onclick={handleStartOnboarding}></lightning-button>
+                <lightning-button label={labelOfAssignOfficer} onclick={openAssignOfficerModal}></lightning-button>
+            </template>
+            <template if:true={isHeadOfCompliance}>
+                <lightning-button label={labelOfReject} onclick={openRejectionModal} variant="destructive-text"></lightning-button>
+            </template>
+            <template if:true={isOnboardingOfficer}>
+                <template if:true={isOnboardingCustomer}>
+                    <lightning-button label={labelOfShowAMLForm} onclick={openAmlRiskScoreTool}></lightning-button>
+                    <template if:true={isComplete}>
+                        <template if:true={officerHasUnansweredComments}>
+                            <lightning-button label={labelOfAnswerToComment} onclick={openAnswerToCommentModal}></lightning-button>
+                        </template>
+                        <template if:false={officerHasUnansweredComments}>
+                            <lightning-button label={labelOfSentToApprove} onclick={openSentToApproveModal}></lightning-button>
+                        </template>
                     </template>
                 </template>
+                <template if:true={isActiveCustomer}>
+                    <lightning-button label={labelOfOnHold} onclick={changeToOnHold}></lightning-button>
+                    <lightning-button label={labelOfSuspend} onclick={changeToSuspend}></lightning-button>
+                    <lightning-button label={labelOfDisconnect} onclick={changeToDisconnect}></lightning-button>
+                    <lightning-button label={labelOfTerminate} onclick={openTerminateModal}></lightning-button>
+                    <lightning-button label={labelOfGeneratePDF}></lightning-button>
+                </template>
+                <template if:true={isCanBeActivated}>
+                    <lightning-button label={labelOfActivate} onclick={changeToActive}></lightning-button>
+                </template>
+                <template if:true={isTerminationOrDisconnectInProcess}>
+                    <lightning-button label={labelTerminationOrDisconnectInProcess} onclick={changeToTerminationOrDisconnect}></lightning-button>
+                </template>
             </template>
-            <template if:true={isActiveCustomer}>
-                <lightning-button label={labelOfOnHold} onclick={changeToOnHold}></lightning-button>
-                <lightning-button label={labelOfSuspend} onclick={changeToSuspend}></lightning-button>
-                <lightning-button label={labelOfDisconnect} onclick={changeToDisconnect}></lightning-button>
-                <lightning-button label={labelOfTerminate} onclick={openTerminateModal}></lightning-button>
+            <template if:true={isSentToApprove}>
+                <lightning-button label={labelOfApprove} onclick={confirmApprove}></lightning-button>
+                <lightning-button label={labelOfReject} onclick={confirmReject} variant="destructive-text"></lightning-button>
+                <lightning-button label={labelOfSendBackWithComment} onclick={openSendBackWithCommentsModal}></lightning-button>
                 <lightning-button label={labelOfGeneratePDF}></lightning-button>
             </template>
-            <template if:true={isCanBeActivated}>
-                <lightning-button label={labelOfActivate} onclick={changeToActive}></lightning-button>
+            <template if:true={isSystemAdmin}>
+                <lightning-button label={labelOfDelete} variant="destructive-text"></lightning-button>
             </template>
-            <template if:true={isTerminationOrDisconnectInProcess}>
-                <lightning-button label={labelTerminationOrDisconnectInProcess} onclick={changeToTerminationOrDisconnect}></lightning-button>
-            </template>
+        </lightning-button-group>
+        <template if:true={showModalWindow}>
+            <c-dynamic-modal-window labelofmodalwindow={labelofmodalwindow}
+                                    isterminatemodal={showTerminateModal}
+                                    issenttoapprovemodal={showSentToApproveModal}
+                                    isrejectionmodal={showRejectionModal}
+                                    issenttoonboardingmodal={showSentToOnboardingModal}
+                                    issentbackmodal={showSendBackWithCommentModal}
+                                    isanswercommentmodal={showAnswerToCommentModal}
+                                    iscopydatamodal={showCopyWebsiteDatatModal}
+                                    isassignofficermodal={showAssignOfficerModal}
+                                    onclose={handleClose}
+                                    nameoffield={nameoffield}
+                                    recordid={recordId}
+                                    textofmessage={textOfCommentMessage}
+                                    approvername={nameOfApprover}
+                                    >
+            </c-dynamic-modal-window>
         </template>
-        <template if:true={isSentToApprove}>
-            <lightning-button label={labelOfApprove} onclick={confirmApprove}></lightning-button>
-            <lightning-button label={labelOfReject} onclick={confirmReject} variant="destructive-text"></lightning-button>
-            <lightning-button label={labelOfSendBackWithComment} onclick={openSendBackWithCommentsModal}></lightning-button>
-            <lightning-button label={labelOfGeneratePDF}></lightning-button>
-        </template>
-        <template if:true={isSystemAdmin}>
-            <lightning-button label={labelOfDelete} variant="destructive-text"></lightning-button>
-        </template>
-    </lightning-button-group>
-    <template if:true={showModalWindow}>
-        <c-dynamic-modal-window labelofmodalwindow={labelofmodalwindow}
-                                isterminatemodal={showTerminateModal}
-                                issenttoapprovemodal={showSentToApproveModal}
-                                isrejectionmodal={showRejectionModal}
-                                issenttoonboardingmodal={showSentToOnboardingModal}
-                                issentbackmodal={showSendBackWithCommentModal}
-                                isanswercommentmodal={showAnswerToCommentModal}
-                                onclose={handleClose}
-                                nameoffield={nameoffield}
+        <template if:true={showAMLForm}>
+            <c-aml-risk-score-tool nameofcustomer={nameOfCustomer}
                                 recordid={recordId}
-                                textofmessage={textOfCommentMessage}
-                                approvername={nameOfApprover}
-                                >
-        </c-dynamic-modal-window>
+                                onclose={handleClose}>
+            </c-aml-risk-score-tool>
+        </template>
     </template>
-    <template if:true={showAMLForm}>
-        <c-aml-risk-score-tool nameofcustomer={nameOfCustomer}
-                               recordid={recordId}
-                               onclose={handleClose}>
-        </c-aml-risk-score-tool>
+    <template if:true={isWebsiteObject}>
+        <lightning-button-group class="slds-float_right">
+            <lightning-button label="Copy Data" onclick={openCopyWebsiteDataModal}></lightning-button>
+            <template if:true={showModalWindow}>
+                <c-dynamic-modal-window labelofmodalwindow={labelofmodalwindow}
+                                        isterminatemodal={showTerminateModal}
+                                        issenttoapprovemodal={showSentToApproveModal}
+                                        isrejectionmodal={showRejectionModal}
+                                        issenttoonboardingmodal={showSentToOnboardingModal}
+                                        issentbackmodal={showSendBackWithCommentModal}
+                                        isanswercommentmodal={showAnswerToCommentModal}
+                                        iscopydatamodal={showCopyWebsiteDatatModal}
+                                        onclose={handleClose}
+                                        recordid={recordId}
+                                        >
+                </c-dynamic-modal-window>
+            </template>
+        </lightning-button-group>
     </template>
 </template>

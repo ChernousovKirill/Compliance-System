@@ -18,7 +18,7 @@
                                 class="slds-listbox__option-text slds-listbox__option-text_entity slds-m-left_xx-small slds-m-bottom_xxx-small">
                                 <div key={attachment.id} data-id={attachment.id} onclick={previewFile} class="slds-col displayGrid">
                                     <label class="slds-truncate pointerCursor hippo-max-width-75">
-                                        {attachment.title}
+                                        {attachment.type}
                                     </label>
                                 </div>
                             </div>
@@ -30,7 +30,23 @@
                                     <li class="slds-item automargin">{attachment.fileType}</li>
                                 </ul>
                             </div>
+                            <div class="slds-grid">
+                                <template if:true={showtypepicklist}>
+                                    <lightning-combobox
+                                                label="Type"
+                                                data-id={attachment.id}
+                                                options={optionsoftype}
+                                                onchange={handleChangeType}
+                                                required="true"></lightning-combobox>
+                                </template>
+                            </div>
+                            <div class="slds-grid">
+                                <template if:true={isValueOther}>
+                                    <lightning-input label="Other Type" data-id={attachment.id} required={isValueOther} onchange={handleOtherTypeChange}></lightning-input>
+                                </template>
+                            </div>
                         </div>
+                        
                         <template if:true={attachment.isCanBeRemoved}>
                             <div class="slds-m-right_xx-small" title="Remove selected option">
                                 <lightning-icon icon-name="utility:close" size="xx-Small" aria-hidden="true"

@@ -23,7 +23,7 @@ public without sharing class ApprovalPanelController {
     public static Boolean checkIfUserHadPermissionForNewCustomer(){
         
         String nameOfUserProfile = [SELECT Name FROM Profile WHERE Id =: UserInfo.getProfileId()].Name;
-        if(nameOfUserProfile == ConstantUtility.CHIEF_COMPLIANCE || nameOfUserProfile == ConstantUtility.HEAD_OF_MERCHANT){
+        if(nameOfUserProfile == ConstantUtility.CHIEF_COMPLIANCE || nameOfUserProfile == ConstantUtility.HEAD_OF_MERCHANT || nameOfUserProfile == ConstantUtility.SYSTEM_ADMINISTRATOR){
             return true;
         }else{
             return false;

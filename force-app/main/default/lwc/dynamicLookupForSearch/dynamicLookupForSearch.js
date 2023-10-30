@@ -10,7 +10,7 @@ export default class DynamicLookupForSearch extends LightningElement {
     listOfRecord = [];
     selectedRecordName;
 
-    @api objectApiName = "Account";
+    @api objectApiName;
     @api fieldApiName = "Name";
     @api searchString = "";
     @api selectedRecordId = "";
@@ -27,7 +27,8 @@ export default class DynamicLookupForSearch extends LightningElement {
             searchString: this.searchString,
             selectedRecordId: this.selectedRecordId,
             parentRecordId: this.parentRecordId,
-            parentFieldApiName: this.parentFieldApiName
+            parentFieldApiName: this.parentFieldApiName,
+            idOfCustomer: this.field.idOfCustomer
         };
     }
 

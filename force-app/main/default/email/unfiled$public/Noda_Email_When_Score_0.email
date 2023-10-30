@@ -1,0 +1,53 @@
+<messaging:emailTemplate subject="Application for Collaboration with Noda" recipientType="Lead" relatedToType="Lead">
+  <messaging:htmlEmailBody >
+    <html lang="en">
+      <head>
+      <title>Hippo Template</title>
+      </head>
+      <body style="width:600px; background-color:#F5F5F5">
+            <c:NodaLetterHeader />
+              <div style="width: 518px; height: 641px; margin: 35px 44px 30px 38px;">
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; line-height: 26px; letter-spacing: -0.04em; text-align: left;">
+                  Dear Michael Bystrov,
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  Greetings from Noda – Open Banking Platform!
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  Firstly, <b>thank you for submitting</b> your application to collaborate with us. We genuinely appreciate the effort and thought that goes into considering us as a potential open banking solution for your project.
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  After carefully reviewing the specifics of your application, we regret to inform you that <b>we are unable to proceed with a collaboration</b> at this time.
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  We strive to ensure that every partnership we engage in aligns seamlessly with the evolving roadmap of our platform, so as to provide the best experience for all involved. Unfortunately, this sometimes means we have to make the difficult decision to decline certain opportunities, even if they have significant merits.
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  We sincerely hope this does not deter you from considering Noda in the future. As the open banking landscape grows and shifts, there may be more suitable opportunities for us to explore a partnership down the road.
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  Please feel free to reach out if you have any questions or if there’s another way we can assist or guide you in the open banking domain.
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  Thank you for your understanding, and we wish you every success in your endeavours.
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                  <b>Best wishes,<br/>
+                  Noda</b>
+                </div>
+              </div>
+      </body>
+    </html>
+  </messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+  Greetings from Noda – Open Banking Platform!
+  Firstly, thank you for submitting your application to collaborate with us. We genuinely appreciate the effort and thought that goes into considering us as a potential open banking solution for your project.
+  After carefully reviewing the specifics of your application, we regret to inform you that we are unable to proceed with a collaboration at this time.
+  We strive to ensure that every partnership we engage in aligns seamlessly with the evolving roadmap of our platform, so as to provide the best experience for all involved. Unfortunately, this sometimes means we have to make the difficult decision to decline certain opportunities, even if they have significant merits.
+  We sincerely hope this does not deter you from considering Noda in the future. As the open banking landscape grows and shifts, there may be more suitable opportunities for us to explore a partnership down the road.
+  Please feel free to reach out if you have any questions or if there’s another way we can assist or guide you in the open banking domain.
+  Thank you for your understanding, and we wish you every success in your endeavours.
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>
+
+

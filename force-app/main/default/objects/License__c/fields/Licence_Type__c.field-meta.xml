@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Licence Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Registration with Authority</fullName>
+                <default>false</default>
+                <label>Registration with Authority</label>
+            </value>
+            <value>
+                <fullName>Legal Opinion</fullName>
+                <default>false</default>
+                <label>Legal Opinion</label>
+            </value>
+            <value>
+                <fullName>Virtual Assets Service Provider (VASP) License</fullName>
+                <default>false</default>
+                <label>Virtual Assets Service Provider (VASP) License</label>
+            </value>
+            <value>
+                <fullName>Remote Gambling License</fullName>
+                <default>false</default>
+                <label>Remote Gambling License</label>
+            </value>
+            <value>
+                <fullName>Forex Broker License</fullName>
+                <default>false</default>
+                <label>Forex Broker License</label>
+            </value>
+            <value>
+                <fullName>Securities License</fullName>
+                <default>false</default>
+                <label>Securities License</label>
+            </value>
+            <value>
+                <fullName>Payment Institution (PI)</fullName>
+                <default>false</default>
+                <label>Payment Institution (PI)</label>
+            </value>
+            <value>
+                <fullName>Electronic Money Institution (EMI)</fullName>
+                <default>false</default>
+                <label>Electronic Money Institution (EMI)</label>
+            </value>
+            <value>
+                <fullName>Money Service Business (MSB)</fullName>
+                <default>false</default>
+                <label>Money Service Business (MSB)</label>
+            </value>
+            <value>
+                <fullName>Financial Institution (FI)</fullName>
+                <default>false</default>
+                <label>Financial Institution (FI)</label>
+            </value>
+            <value>
+                <fullName>Agent License</fullName>
+                <default>false</default>
+                <label>Agent License</label>
+            </value>
+            <value>
+                <fullName>Travel License</fullName>
+                <default>false</default>
+                <label>Travel License</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

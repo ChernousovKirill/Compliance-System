@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product__c</fullName>
+    <externalId>false</externalId>
+    <label>Product</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Open Banking Pay-ins</fullName>
+                <default>false</default>
+                <label>Open Banking Pay-ins</label>
+            </value>
+            <value>
+                <fullName>Open Banking Pay-outs</fullName>
+                <default>false</default>
+                <label>Open Banking Pay-outs</label>
+            </value>
+            <value>
+                <fullName>Pay by Link</fullName>
+                <default>false</default>
+                <label>Pay by Link</label>
+            </value>
+            <value>
+                <fullName>Noda GO</fullName>
+                <default>false</default>
+                <label>Noda GO</label>
+            </value>
+            <value>
+                <fullName>Cards Processing</fullName>
+                <default>false</default>
+                <label>Cards Processing</label>
+            </value>
+            <value>
+                <fullName>Interac Canada</fullName>
+                <default>false</default>
+                <label>Interac Canada</label>
+            </value>
+            <value>
+                <fullName>Pix Brazil</fullName>
+                <default>false</default>
+                <label>Pix Brazil</label>
+            </value>
+            <value>
+                <fullName>Other (Specify)</fullName>
+                <default>false</default>
+                <label>Other (Specify)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

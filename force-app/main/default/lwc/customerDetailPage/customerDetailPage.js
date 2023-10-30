@@ -2,7 +2,6 @@ import { LightningElement, wire, api, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getValuesForDetailesPage from '@salesforce/apex/CustomerDetailPageController.getValuesForDetailesPage';
 import addDocumentToWrapper from '@salesforce/apex/CustomerDetailPageController.addDocumentToWrapper';
-import deleteAttachment from '@salesforce/apex/FileUploadController.deleteAttachment';
 import updateCustomerFromEditForm from '@salesforce/apex/CustomerDetailPageController.updateCustomerFromEditForm';
 import updateAdditionalDocumentFromEditForm from '@salesforce/apex/CustomerDetailPageController.updateAdditionalDocumentFromEditForm'
 import saveLWCLog from '@salesforce/apex/LogService.saveLWCLog';
@@ -12,9 +11,8 @@ import cancelButtonLabel from '@salesforce/label/c.cancelButton';
 import additionalDocumentLabel from '@salesforce/label/c.additionalDocumentLabel';
 import valueLabel from '@salesforce/label/c.valueLabel';
 import saveButtonLabel from '@salesforce/label/c.saveButtonLabel';
-import documentWasDeletedLabel from '@salesforce/label/c.documentWasDeletedLabel';
 import labelOfErrorShowToast from '@salesforce/label/c.Something_went_wrong';
-import labelOfSuccessfullySavedForm from '@salesforce/label/c.labelOfSuccessfullySavedForm';
+import labelOfSuccessfullySavedForm from '@salesforce/label/c.labelOfSuccessfullySavedRecord';
 
 export default class CustomerDetailPage extends LightningElement {
     @track sections;
@@ -23,7 +21,7 @@ export default class CustomerDetailPage extends LightningElement {
     @api listofuploadedattachments = [];
     @api optionsOfBlockedCountries;
     @api nameOfBankAccountSection = 'Bank Accounts';
-
+    @api recordCanBeEdited = false;
 
     @track activeSections;
     @track isDisabled = true;
@@ -32,11 +30,9 @@ export default class CustomerDetailPage extends LightningElement {
     @track updatedFields = [];
     @track updatedAdditionalDocuments = [];
     @track insertedAdditionalDocuments = [];
-    @track listOfAttachmentsBySection = {};
     @track showNewDocumentModalWindow = false;
     @track isEditFormAvailable = false;
     @track labelofModalWindow = '';
-    
     @api labelOfAdditionalDocument;
     @api valueOfAdditionalDocument;
 
@@ -47,11 +43,9 @@ export default class CustomerDetailPage extends LightningElement {
     @api labelOfSaveButton = saveButtonLabel;
 
     @track amlRiskAssesmentFields = ['Enhanced_Periodic_KYC__c', 'SOW_SOF__c', 'Compliance_policies__c', 'Enhanced_Webshield__c', 'License__c', 'Enhnaced_Sanction_Screening__c', 'Certified_Documents__c', 'Enhanced_TM__c', 'Certified_Organizational_Chart__c', 'MLRO_Approval__c'];
-
-     
+ 
     connectedCallback() {
         this.getValuesForDetails();
-        window.addEventListener('editclick', this.handleEditEvent.bind(this));
     }
 
     getValuesForDetails() {
@@ -62,8 +56,16 @@ export default class CustomerDetailPage extends LightningElement {
                 const { recordOfCustomer, detailsPageSections, isAMLRiskAssessmentCheckboxHide } = result;
                 this.sections = detailsPageSections;
                 this.isAMLRiskAssessmentCheckboxHide = isAMLRiskAssessmentCheckboxHide;
+                this.sections.forEach((section) => {
+                    section.fields.forEach((field) => {
+                        if (field.apiNameOfField == 'Status__c') {
+                            this.recordCanBeEdited = field.defaultValue == 'New' || field.defaultValue == 'Uploading Documents' || field.defaultValue == 'Ready for Onboarding'  ? false : true;
+                        }
+                    });
+                });
                 this.optionsOfBlockedCountries = recordOfCustomer.Country_Blocks__c.split(';');
-
+                
+                this.getSelectedOptionsOfPicklist();
             }
             this.error = undefined;
         }).catch((error) => {
@@ -78,7 +80,6 @@ export default class CustomerDetailPage extends LightningElement {
         let isAdditionalCheckbox = event.target.dataset.isadditionaldocument;
         let idOfDocument = event.target.dataset.idofdocument;
         let label = event.target.dataset.label;
-
         let valueOfField;
         if(isCheckboxField) {
             valueOfField = event.target.checked;
@@ -99,44 +100,59 @@ export default class CustomerDetailPage extends LightningElement {
         } else {
             valueOfField = event.target.value;
         }
-
-
+        
         this.sections.forEach((section) => {
             section.fields.forEach((field) => {
-                if (this.amlRiskAssesmentFields.includes(field.apiNameOfField)) {
-                    if (apiNameOfField == 'CDD_Level__c') {
-                        if(valueOfField == 'Enhanced CDD') {
-                            this.isAMLRiskAssessmentCheckboxHide = false;
+                    if (this.amlRiskAssesmentFields.includes(field.apiNameOfField)) {
+                        if (apiNameOfField == 'CDD_Level__c') {
+                            if(valueOfField == 'Enhanced CDD') {
+                                this.isAMLRiskAssessmentCheckboxHide = false;
+                            } else {
+                                this.isAMLRiskAssessmentCheckboxHide = true;
+                            }
+                        }
+                        field.isHide = this.isAMLRiskAssessmentCheckboxHide;
+                    }
+                    if (apiNameOfField == 'Business_Industry_Activity__c') {
+                        if(valueOfField == 'Other') {
+                            if (field.apiNameOfField == 'Other_Business_Industry_Activity__c') {
+                                field.isHide = false;
+                            }
                         } else {
-                            this.isAMLRiskAssessmentCheckboxHide = true;
+                            if (field.apiNameOfField == 'Other_Business_Industry_Activity__c') {
+                                field.isHide = true;
+                            }
                         }
                     }
-                    field.isHide = this.isAMLRiskAssessmentCheckboxHide;
-                }
-                if (apiNameOfField == 'Business_Industry_Activity__c') {
-                    if(valueOfField == 'Other') {
-                        if (field.apiNameOfField == 'Other_Business_Industry_Activity__c') {
-                            field.isHide = false;
-                        }
-                    } else {
-                        if (field.apiNameOfField == 'Other_Business_Industry_Activity__c') {
-                            field.isHide = true;
-                        }
+
+                    if(apiNameOfField == 'Country_Blocks__c') {
+                        this.optionsOfBlockedCountries = valueOfField;
                     }
-                }
-                if(apiNameOfField == 'Country_Blocks__c') {
-                    this.optionsOfBlockedCountries = valueOfField;
-                }
-                if(field.apiNameOfField == apiNameOfField) {
-                    this.updatedFields.push({
-                        apiNameOfField: field.apiNameOfField,
-                        value: valueOfField,
+                    if(field.apiNameOfField == apiNameOfField) {
+                        this.updatedFields.push({
+                            apiNameOfField: field.apiNameOfField,
+                            value: valueOfField,
+                        });
+                    }
+                
+            });
+        });
+        
+    }
+
+    getSelectedOptionsOfPicklist() {
+        this.sections.forEach((section) => {
+            section.fields.forEach((field) => {
+                if (field.areFieldsPicklist) {
+                    field.options.forEach((option) => {
+                        option.selected = field.defaultValue.includes(option.value);
                     });
                 }
             });
         });
     }
-
+    
+    
     updateCustomerFromDetailsPage() {
 
         const fieldsForUpdate = {};
@@ -175,7 +191,6 @@ export default class CustomerDetailPage extends LightningElement {
             });
             this.documentsForInsert = documentsForInsert;
         }
-
         updateAdditionalDocumentFromEditForm({ recordId: this.recordId, updatedAdditionalDocuments: this.documentsForUpdate, insertedAdditionalDocuments: this.documentsForInsert })
             .then(() => {
             })
@@ -213,7 +228,7 @@ export default class CustomerDetailPage extends LightningElement {
         })
         .then(result => {
             this.listOfDocuments = result;
-            let nameOfSection = 'AML Risk Assessment';
+            let nameOfSection = 'Customer Risk Assessment';
             this.sections.forEach((section) => {
                 if(section.label == nameOfSection) {
                     this.listOfDocuments.forEach((element) => {
@@ -234,30 +249,8 @@ export default class CustomerDetailPage extends LightningElement {
                     });
                 }
             });
+            this.isEditFormAvailable = true;
             this.handleCloseAddNewDocumentModal();
-        });
-    }
-
-    deleteAttachment(event) {
-        deleteAttachment({
-            idOfContentDocument: event.detail.attachmentIdForDelete
-        }).then(() => {
-            let nameOfSection = event.detail.nameOfSection;
-            this.sections.forEach((section) => {
-                if(section.label == nameOfSection) {
-                    let listOfAttachments = JSON.parse(JSON.stringify(section.listOfAttachments));
-                    listOfAttachments.forEach(attachment => {
-                        if (attachment.contentDocumentId == event.detail.attachmentIdForDelete) {
-                            listOfAttachments.splice(listOfAttachments.indexOf(attachment), 1);
-                            listOfAttachments.slice();
-                        }
-                    });
-                    section.listOfAttachments = listOfAttachments;
-                }
-            });
-            this.showToast('', documentWasDeletedLabel, 'Success');
-        }).catch((error) => {
-            console.error(error);
         });
     }
 
@@ -290,7 +283,7 @@ export default class CustomerDetailPage extends LightningElement {
     }
 
     handleCancelEditForm() {
-        let nameOfSection = 'AML Risk Assessment';
+        let nameOfSection = 'Customer Risk Assessment';
         this.sections.forEach((section) => {
             if(section.label == nameOfSection) {
                 section.fields.forEach((field) => {
@@ -307,9 +300,9 @@ export default class CustomerDetailPage extends LightningElement {
         });
         this.isEditFormAvailable = false;    
     }
-  
-    disconnectedCallback() {
-        window.removeEventListener('editclick', this.handleEditEvent);
+
+    handleEditClick() {
+        this.isEditFormAvailable = true;
     }
     
     handleEditEvent(event) {

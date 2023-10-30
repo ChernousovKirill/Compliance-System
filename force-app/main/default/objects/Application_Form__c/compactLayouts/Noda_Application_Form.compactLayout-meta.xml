@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Noda_Application_Form</fullName>
+    <fields>Name__c</fields>
+    <fields>Status__c</fields>
+    <fields>Date__c</fields>
+    <fields>Customer__c</fields>
+    <label>Noda Application Form</label>
+</CompactLayout>

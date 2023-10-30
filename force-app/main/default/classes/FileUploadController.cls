@@ -6,12 +6,18 @@ public class FileUploadController {
         List<ContentDocumentLink> listOfContentDocumentLink = [SELECT Id, LinkedEntityId, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :recordId];
         List<AttachmentFields> listOfUploadedAttachmentsWrapper = new List<AttachmentFields>();
         List<String> listOfContentDocumentId = new List<String>();
+        List<ContentVersion> listOfContentVersion = new List<ContentVersion>();
 
         for(ContentDocumentLink contentDocumentLink : listOfContentDocumentLink) {
             listOfContentDocumentId.add(contentDocumentLink.ContentDocumentId);
         }
 
-        List<ContentVersion> listOfContentVersion = getAttachmentContentVersionRecord(listOfContentDocumentId, typeOfAttachment);
+        if(typeOfAttachment != null) {
+            listOfContentVersion = getAttachmentContentVersionRecord(listOfContentDocumentId, typeOfAttachment);
+        } else {
+            listOfContentVersion = getAttachmentContentVersionRecordWithoutType(listOfContentDocumentId);
+        }
+         
 
         for(ContentVersion contentVersion : listOfContentVersion) {
             AttachmentFields attachment = new AttachmentFields();
@@ -26,7 +32,6 @@ public class FileUploadController {
     public static List<AttachmentFields> handleUploadNewAttachment(List<String> listOfAttachmentIds, String recordId, String typeOfAttachment) {
 
         List<ContentVersion> listOfAttachments = getAttachmentContentVersionRecordWithoutType(listOfAttachmentIds);
-
         List<AttachmentFields> listOfAttachmentsFields = new List<AttachmentFields>();
         Set<Id> contentDocumentIdForDelete = new Set<Id>();
 
@@ -72,7 +77,7 @@ public class FileUploadController {
 
     public static List<ContentVersion> getAttachmentContentVersionRecordWithoutType(List<String> listOfContentDocumentId){
         return [
-                SELECT Id, ContentDocumentId, ContentSize, CreatedDate, FileType, Title, FileExtension, CreatedById, Type__c, Status__c
+                SELECT Id, ContentDocumentId, ContentSize, CreatedDate, FileType, Title, FileExtension, CreatedById, Type__c, Other_Type__c, Status__c
                 FROM ContentVersion 
                 WHERE ContentDocumentId IN :listOfContentDocumentId 
                 ORDER BY CreatedDate
@@ -81,12 +86,15 @@ public class FileUploadController {
 
     @AuraEnabled
     public static AttachmentFields fillAttachmentWrapper(ContentVersion document) {
-        System.debug('type ' +  document.Status__c);
         AttachmentFields attachment = new AttachmentFields();
         attachment.id = document.id;
         attachment.title = document.title;
         attachment.fileType = document.fileType;
-        attachment.type = document.Type__c;
+        if(document.Type__c == 'Other') {
+            attachment.type = document.Other_Type__c;
+        } else {
+            attachment.type = document.Type__c;
+        }
         attachment.fileExtension = document.fileExtension;
         attachment.iconName = getFileIcon(document.fileExtension);
         attachment.contentDocumentId = document.ContentDocumentId;
@@ -94,7 +102,7 @@ public class FileUploadController {
         attachment.createdDate = String.valueOf(document.CreatedDate.format()).replace(',', '');
         attachment.createdById = document.createdById;
         attachment.statusOfAttachment = document.Status__c;
-        attachment.isCanBeRemoved = false;
+        attachment.isCanBeRemoved = document.Status__c == 'Approved' ? false : true;
         return attachment;
     }
 
@@ -129,13 +137,114 @@ public class FileUploadController {
 
     @AuraEnabled
     public static String getDocumentIdFromContentVersion(String contentVersionId) {
-        System.debug('contentVersionId ' + contentVersionId);
         return getContentVersionById(contentVersionId).ContentDocumentId;
     }
 
     @AuraEnabled
     public static ContentVersion getContentVersionById(String contentVersionId) {
         return [SELECT Id, ContentDocumentId FROM ContentVersion WHERE Id = :contentVersionId LIMIT 1];
+    }
+
+    @AuraEnabled
+    public static List<ApplicationFormService.OptionWrapper> getOptionsForType(Id recordId){
+        
+        String nameOfObject = '';
+        Set<String> setOfCurrentTypes = new Set<String>();
+
+        List<ApplicationFormService.OptionWrapper> listOfTypeOptions = new List<ApplicationFormService.OptionWrapper>();
+        ApplicationFormService.OptionWrapper otherOption = new ApplicationFormService.OptionWrapper();
+        otherOption.value = 'Other';
+        otherOption.label = 'Other';
+
+        if(recordId != null) {
+            nameOfObject = recordId.getSObjectType().getDescribe().getName();
+        }
+        String query = 'SELECT Name FROM Document__c WHERE ' + nameOfObject + ' =:recordId';
+        List<Document__c> listOfDocuments = Database.query(query);
+
+        for(Document__c document : listOfDocuments) {
+            if (!setOfCurrentTypes.contains(document.Name)) {
+                ApplicationFormService.OptionWrapper option = new ApplicationFormService.OptionWrapper();
+                option.value = document.Name;
+                option.label = document.Name;
+                listOfTypeOptions.add(option);
+                setOfCurrentTypes.add(document.Name);
+            }
+        }
+        listOfTypeOptions.add(otherOption);
+        return listOfTypeOptions;
+    
+    }
+
+    @AuraEnabled
+    public static void updateTypeOfAttachment(String recordId, List<Map<Object, Object>> listOfAttachmentForUpdate) {
+
+        List<ContentDocumentLink> listOfContentDocumentLink = [SELECT Id, LinkedEntityId, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :recordId];
+        List<String> listOfContentDocumentId = new List<String>();
+        List<ContentVersion> listOfContentVersion = new List<ContentVersion>();
+
+        Set<String> setOfTypes = new Set<String>();
+        Set<String> setOfUploadedTypes = new Set<String>();
+        Set<String> setOfAttachmentIds = new Set<String>();
+
+        for(ContentDocumentLink contentDocumentLink : listOfContentDocumentLink) {
+            listOfContentDocumentId.add(contentDocumentLink.ContentDocumentId);
+        }
+        listOfContentVersion = getAttachmentContentVersionRecordWithoutType(listOfContentDocumentId);
+        for(ContentVersion contentVersion : listOfContentVersion) {
+            setOfTypes.add(contentVersion.Type__c);
+        }
+        
+        List<ContentVersion> listOfContentVersionForUpdate = new List<ContentVersion>();
+            for (Map<Object, Object> record : listOfAttachmentForUpdate) {
+                Id idOfAttachment = (Id)record.get('idOfAttachment');
+                List<Object> fieldsToUpdate = (List<Object>)record.get('fieldsToUpdate');
+
+                ContentVersion contentVersionForUpdate = new ContentVersion();
+                contentVersionForUpdate.Id = idOfAttachment;
+                setOfAttachmentIds.add(idOfAttachment);
+
+                for (Object updatedField : fieldsToUpdate) {
+                    Map<Object, Object> mapOfValueByField = (Map<Object, Object>)updatedField;
+                    String type = (String)mapOfValueByField.get('valueOfType');
+                    String otherType = (String)mapOfValueByField.get('specifiedTypeValue');
+                    
+                    setOfUploadedTypes.add(type);
+                    contentVersionForUpdate.Type__c = type;
+                    contentVersionForUpdate.Active__c = true;
+                    if (type == 'Other') {
+                        if(!setOfTypes.contains(otherType)) {
+                            contentVersionForUpdate.Other_Type__c = otherType;
+                        }  else {
+                            throw new AuraHandledException('Document name must be unique!');
+                        }
+                    }
+                        
+                    
+                }
+
+                listOfContentVersionForUpdate.add(contentVersionForUpdate);
+            }
+            update listOfContentVersionForUpdate;
+            deactivateOldAttachments(listOfContentDocumentId, setOfUploadedTypes, setOfAttachmentIds);
+    
+    }
+
+    public static void deactivateOldAttachments(List<String> listOfContentDocumentId, Set<String> setOfUploadedTypes, Set<String> setOfAttachmentIds) {
+
+        List<ContentVersion> listOfContentVersion = [SELECT Id, ContentDocumentId, Type__c, Active__c
+                                                        FROM ContentVersion 
+                                                        WHERE ContentDocumentId IN :listOfContentDocumentId 
+                                                        AND Type__c IN :setOfUploadedTypes
+                                                        AND Active__c = true
+                                                        AND Id NOT IN :setOfAttachmentIds];
+        
+        for(ContentVersion attachment : listOfContentVersion) {
+            attachment.Active__c = false;
+        }
+
+        update listOfContentVersion;
+
     }
 
     public class AttachmentFields {

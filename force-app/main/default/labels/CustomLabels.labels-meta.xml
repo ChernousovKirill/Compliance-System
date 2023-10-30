@@ -386,11 +386,25 @@
         <value>AML Risk Form has been successfully saved</value>
     </labels>
     <labels>
+        <fullName>labelOfSuccessfullySavedRecord</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record has been successfully saved</shortDescription>
+        <value>Record has been successfully saved</value>
+    </labels>
+    <labels>
         <fullName>numberOfAttachmentLabel</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>files</shortDescription>
         <value>files</value>
+    </labels>
+    <labels>
+        <fullName>labelOfAttachment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attachments</shortDescription>
+        <value>Attachments</value>
     </labels>
     <labels>
         <fullName>oneAMLFormActiveLabel</fullName>

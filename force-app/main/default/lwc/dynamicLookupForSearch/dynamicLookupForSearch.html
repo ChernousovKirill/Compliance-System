@@ -4,7 +4,7 @@
             <div class="slds-combobox_container" if:false={isValueSelected}>
                 <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
                     <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
-                        <lightning-input class="slds-m-left_x-large" style="max-width:300px;" onchange={handleChange} type="search" autocomplete="off" variant="label-hidden"
+                        <lightning-input  onchange={handleChange} type="search" autocomplete="off" variant="label-hidden"
                             required={required}
                             onblur={handleInputBlur}></lightning-input>
                     </div>
@@ -14,7 +14,7 @@
                 <template if:true={required}>
                     <span style="color:red">*</span>
                 </template>
-                <div tabindex="0" class="slds-combobox_container slds-has-selection slds-m-left_x-large" style="max-width:300px;">
+                <div tabindex="0" class="slds-has-selection" >
                     <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
                         <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
                             role="none">
@@ -42,7 +42,7 @@
             </template>
             <template if:true={showRecentRecords}>
                 <div id="listbox-id-4" tabindex="0" onblur={handleBlur} onmousedown={handleDivClick}
-                    class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid slds-m-left_x-large" role="listbox">
+                    class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
                     <ul class="slds-listbox slds-listbox_vertical" role="presentation">
                         <template for:each={listOfRecord} for:item="record">
                             <li role="presentation" key={record.idOfRecord} class="slds-listbox__item">

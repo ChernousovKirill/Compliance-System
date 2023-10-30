@@ -16,6 +16,7 @@ export default class FileUploadPanel extends LightningElement {
     @track filesUploadSuccessLabel = filesUploadSuccess;
     @track filesUploadFailedLabel = filesUploadFailed;
     @track fileUploadLabel = fileUploadLabel;
+    @track numberofuploadedfiles = 0;
 
     handleUploadFinished(event) {
         let listOfDocumentIds = [];

@@ -4,12 +4,16 @@ public with sharing class DynamicLookupForSearchController {
         try {
             if(inputWrapper != null){
                 if(inputWrapper.objectApiName == 'Customer__c') {
-                    inputWrapper.firstFieldApiName = 'Legal_Name__c';
+                    inputWrapper.firstFieldApiName = 'Status__c';
                     inputWrapper.secondFieldApiName = 'Type_of_Relationships__c';
                 }
                 if(inputWrapper.objectApiName == 'User') {
                     inputWrapper.firstFieldApiName = 'Role_Name__c';
                     inputWrapper.secondFieldApiName = 'Email';
+                }
+                if(inputWrapper.objectApiName == 'Corporate_KYC__c') {
+                    inputWrapper.firstFieldApiName = 'Record_Type__c';
+                    inputWrapper.secondFieldApiName = 'Status__c';
                 }
                 String fieldsToQuery = 'SELECT Id, ';
                 if(string.isNotBlank(inputWrapper.fieldApiName)){
@@ -35,6 +39,8 @@ public with sharing class DynamicLookupForSearchController {
                 else {
                     if(inputWrapper.objectApiName == 'Customer__c') {
                         query += ' WHERE Id <> \'' + recordId + '\' AND ' + filterCriteria;
+                    } else if(inputWrapper.objectApiName == 'Corporate_KYC__c' && inputWrapper.idOfCustomer != null && inputWrapper.idOfCustomer != '') {
+                        query += ' WHERE Customer__c = \''+ inputWrapper.idOfCustomer + '\'' + ' AND ' + filterCriteria;
                     } else {
                         query += ' WHERE '+ filterCriteria;
                     }
@@ -72,5 +78,6 @@ public with sharing class DynamicLookupForSearchController {
         @AuraEnabled public String selectedRecordId{get;set;}
         @AuraEnabled public String parentRecordId{get;set;}
         @AuraEnabled public String parentFieldApiName{get;set;}
+        @AuraEnabled public String idOfCustomer{get;set;}
     }
 }

@@ -1,0 +1,42 @@
+<template>
+    <lightning-card>
+        <lightning-layout class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <lightning-layout-item>
+                        <lightning-icon class="slds-var-p-left_x-small" icon-name="doctype:image" size="small" title="Image"></lightning-icon>
+                            &nbsp; &nbsp; <b>{labelOfAttachments} ({numberofuploadedfiles} {labelOfFiles})</b>
+                        <div class="slds-border_bottom slds-var-p-top_x-small"></div>
+                </lightning-layout-item>
+            </div>
+        </lightning-layout>
+        <lightning-layout-item>
+            <template for:each={listofuploadedattachments} for:item="attachment">
+                <div id={attachment.id} key={attachment.id}>
+                    <div data-id="rowAttachment" data-key={attachment.id} data-name={attachment.title} role="option" class="slds-col">
+                        <lightning-layout-item>
+                            <c-attachment-visibility-panel attachment={attachment}
+                                                            ondeleterecord={deleteAttachment}
+                                                            >
+                            </c-attachment-visibility-panel>
+                        </lightning-layout-item>
+                    </div>
+                </div>
+            </template>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <div class="slds-border_top slds-align_absolute-center slds-p-top_medium">
+                <lightning-button label="Upload File" onclick={openFileUploadModalWindow}></lightning-button>
+            </div>
+        </lightning-layout-item>
+    </lightning-card>
+    <template if:true={showFileUploadModalWindow}>
+        <c-dynamic-modal-window labelofmodalwindow={labelofmodalwindow}
+                                isuploadfilemodal={showFileUploadModalWindow}
+                                onclose={handleClose}
+                                recordid={recordId}
+                                objectapiname={objectApiName}
+                                        >
+                </c-dynamic-modal-window>
+    </template>
+</template>
+

@@ -12,8 +12,18 @@
             <sorted>false</sorted>
             <value>
                 <fullName>New</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>New</label>
+            </value>
+            <value>
+                <fullName>Uploading Documents</fullName>
+                <default>false</default>
+                <label>Uploading Documents</label>
+            </value>
+            <value>
+                <fullName>Ready for Onboarding</fullName>
+                <default>false</default>
+                <label>Ready for Onboarding</label>
             </value>
             <value>
                 <fullName>Onboarding</fullName>

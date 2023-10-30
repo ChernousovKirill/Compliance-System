@@ -5,11 +5,14 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import userId from '@salesforce/user/Id';
 import getApprovers from '@salesforce/apex/DynamicModalWindowController.getApprovers';
+import getWebsites from '@salesforce/apex/DynamicModalWindowController.getWebsites';
+import getComplianceTeamMembers from '@salesforce/apex/DynamicModalWindowController.getComplianceTeamMembers';
 import createCommentFromApprover from '@salesforce/apex/DynamicModalWindowController.createCommentFromApprover';
 import updateApproverCommentWithAnswer from '@salesforce/apex/DynamicModalWindowController.updateApproverCommentWithAnswer';
-import getAMLOfficersForOnboarding from '@salesforce/apex/DynamicModalWindowController.getAMLOfficersForOnboarding';
+import copyWebsiteData from '@salesforce/apex/DynamicModalWindowController.copyWebsiteData';
+import getOptionsForType from '@salesforce/apex/FileUploadController.getOptionsForType';
+import updateTypeOfAttachment from '@salesforce/apex/FileUploadController.updateTypeOfAttachment';
 import saveLWCLog from '@salesforce/apex/LogService.saveLWCLog';
-import labelOfOnboardingStarted from '@salesforce/label/c.Onboarding_started';
 import labelOfTerminationReasonPlaceholder from '@salesforce/label/c.Select_termination_reason';
 import labelOfRequiredFieldsValidation from '@salesforce/label/c.Complete_required_fields';
 import labelOfErrorShowToast from '@salesforce/label/c.Something_went_wrong';
@@ -17,13 +20,12 @@ import labelOfTerminationStartedSuccessfuly from '@salesforce/label/c.Terminatio
 import labelOfRecordRejected from '@salesforce/label/c.Record_rejected';
 import labelOfRejectButton from '@salesforce/label/c.Reject_Button';
 import labelOfSubmittedForApproval from '@salesforce/label/c.Record_submitted_for_approval';
+import labelOfOnboardingStarted from '@salesforce/label/c.Onboarding_started';
 import cancelButton from '@salesforce/label/c.cancelButton';
 import terminateRecordButton from '@salesforce/label/c.Terminate_Record';
 import sentToApproveButton from '@salesforce/label/c.Sent_to_Approve';
 import otherRejectionReason from '@salesforce/label/c.Other_Rejection_Reason';
 import otherTerminationReason from '@salesforce/label/c.Other_Termination_Reason';
-import selectAMLOfficer from '@salesforce/label/c.Select_AML_Officer';
-import assignAMLOfficer from '@salesforce/label/c.Assign_AML_Officer';
 import labelOfCommentSuccessfulySent from '@salesforce/label/c.Comment_has_been_successfully_sent';
 import labelOfAnswerSuccessfulySent from '@salesforce/label/c.Your_answer_has_been_successfully_sent';
 import sendButton from '@salesforce/label/c.Send_Button';
@@ -34,13 +36,16 @@ export default class DynamicModalWindow extends LightningElement {
 
     @api isterminatemodal;
     @api issenttoapprovemodal;
-    @api issenttoonboardingmodal;
     @api isrejectionmodal;
     @api issentbackmodal;
     @api isanswercommentmodal;
     @api isadditionaldocumentmodal;
+    @api iscopydatamodal;
+    @api isuploadfilemodal;
+    @api isassignofficermodal;
     @api textofmessage;
     @api approvername;
+    @api objectapiname;
 
     @api nameOfObject = 'Customer__c';
     @api nameoffield;
@@ -54,8 +59,6 @@ export default class DynamicModalWindow extends LightningElement {
     @api labelOfOtherRejectionReason = otherRejectionReason;
     @api labelOfOtherTerminationReason = otherTerminationReason;
     @api labelOfRecordRejectedButton = labelOfRejectButton;
-    @api labelOfSelectAMLOfficer = selectAMLOfficer;
-    @api labelOfAssignAMLOfficer = assignAMLOfficer;
     @api labelOfComments = commentsLabel;
     @api labelOfSendButton = sendButton;
     @api labelOfAnswer = answerLabel
@@ -63,8 +66,10 @@ export default class DynamicModalWindow extends LightningElement {
     @api idOfRecordType;
     @api recordid;
     @api approver;
+    @api website;
     @api amlOfficer;
     @api idOfUser = userId;
+    @api isTypeAvailable = false;
 
     @api selectedReasonOfTerminate;
     @api selectedReasonOfReject;
@@ -81,13 +86,31 @@ export default class DynamicModalWindow extends LightningElement {
     @track terminateReasonOptions;
     @track rejectReasonOptions;
     @track approverOptions;
-    @track amlOfficerOptions;
+    @track listOfCompliance;
+    @track websiteOptions;
+    @track optionsOfType;
+
+    @track listOfUploadedAttachments = [];
+    @track attachmentForUpdate = [];
 
     apiNameOfField;
 
     connectedCallback() {
-        this.getOptions();
-        this.getAMLOfficerOptions();
+        
+        this.isTypeAvailable = this.objectapiname == 'Bank_Account__c' ? false : true;
+        console.log('this isassignofficermodal ' + this.isassignofficermodal);
+        if(this.issenttoapprovemodal == true) {
+            this.getApproverOptions();
+        }
+        if(this.iscopydatamodal == true) {
+            this.getWebsiteOptions();
+        }
+        if(this.isuploadfilemodal == true) {
+            this.getTypeOptions();
+        }
+        if(this.isassignofficermodal == true) {
+            this.getOnboardingOfficer();
+        }        
     }
 
     @wire(getObjectInfo, { objectApiName: '$nameOfObject' })
@@ -132,7 +155,7 @@ export default class DynamicModalWindow extends LightningElement {
         }
     }
     
-      getOptions() {
+    getApproverOptions() {
         getApprovers({recordId: this.recordid})
           .then((result) => {
              let approverOptions = [];
@@ -150,21 +173,53 @@ export default class DynamicModalWindow extends LightningElement {
             saveLWCLog({ id : this.recordid,
                 description: JSON.stringify(error)})
         });
-      }
+    }
 
-      getAMLOfficerOptions() {
-        getAMLOfficersForOnboarding({recordId: this.recordid})
+    getOnboardingOfficer() {
+        getComplianceTeamMembers({recordId: this.recordid})
           .then((result) => {
-             let amlOfficerOptions = [];
+             let onboardingOfficers = [];
             if (result) {
               result.forEach(data => {
-                amlOfficerOptions.push({
+                onboardingOfficers.push({
                   label: data.Name,
                   value: data.Id,
                 });
               });
             }
-            this.amlOfficerOptions = amlOfficerOptions;
+            this.listOfCompliance = onboardingOfficers;
+            cons
+          })
+          .catch((error) => {
+            saveLWCLog({ id : this.recordid,
+                description: JSON.stringify(error)})
+        });
+    }
+
+      getWebsiteOptions() {
+        getWebsites({recordId: this.recordid})
+          .then((result) => {
+             let websiteOptions = [];
+            if (result) {
+              result.forEach(data => {
+                websiteOptions.push({
+                  label: data.Name,
+                  value: data.Id,
+                });
+              });
+            }
+            this.websiteOptions = websiteOptions;
+          })
+          .catch((error) => {
+            saveLWCLog({ id : this.recordid,
+                description: JSON.stringify(error)})
+        });
+      }
+
+      getTypeOptions() {
+        getOptionsForType({recordId: this.recordid})
+          .then((result) => {
+             this.optionsOfType = result;
           })
           .catch((error) => {
             saveLWCLog({ id : this.recordid,
@@ -192,6 +247,11 @@ export default class DynamicModalWindow extends LightningElement {
         } else {
             this.confirmButtonDisabled = false;
         }
+    }
+
+    handleChangeWebsite(event) {
+        this.website = event.detail.value;
+        this.confirmButtonDisabled = this.website == null ? true : false;
     }
 
     handleClose(){
@@ -245,6 +305,54 @@ export default class DynamicModalWindow extends LightningElement {
     handleChangeAMLOfficer(event) {
         this.amlOfficer = event.detail.value;
         this.confirmButtonDisabled = this.amlOfficer == null ? true : false;
+    }
+
+    handleAttachmentUpload(event){
+        let listOfAttachments = JSON.parse(JSON.stringify(event.detail.listOfUploadedAttachments));
+        listOfAttachments.forEach(attachment => {
+            this.listOfUploadedAttachments.push(attachment);
+        });
+        listOfAttachments = null;
+    }
+
+    handleChaneTypeOfAttachment(event) {
+        let valueOfType = event.detail.valueOfType;
+        let attachmentId = event.detail.idOfAttachment;
+        let specifiedTypeValue = event.detail.specifiedTypeValue;
+        let isValueOther = event.detail.isValueOther;
+    
+        let record = this.attachmentForUpdate.find(item => item.idOfAttachment === attachmentId);
+        if (!record) {
+            record = { idOfAttachment: attachmentId, fieldsToUpdate: [] };
+            this.attachmentForUpdate.push(record);
+        }
+        
+        if (isValueOther == true) {
+            let existingField = record.fieldsToUpdate.find(field => field.valueOfType === "Other");
+            if (existingField) {
+                existingField.specifiedTypeValue = specifiedTypeValue;
+            } else {
+                record.fieldsToUpdate.push({ valueOfType: "Other", specifiedTypeValue: specifiedTypeValue });
+            }
+        } else {
+            record.fieldsToUpdate.push({ valueOfType: valueOfType });
+        }
+
+    }
+    
+
+    handleSaveUploadedFile() {
+        updateTypeOfAttachment({ 
+            recordId: this.recordid,
+            listOfAttachmentForUpdate: this.attachmentForUpdate })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((error) => {
+                this.showToast('Error', 'Document name must be unique!', 'Error');
+            saveLWCLog({ id : this.recordid,
+              description: JSON.stringify(error)})
+            });
     }
 
     confirmTerminateRecord(event){
@@ -326,25 +434,25 @@ export default class DynamicModalWindow extends LightningElement {
             });
     }
 
-    confirmAMLOfficerForOnboarding() {
+    confirmAssignOfficerAndStartOnboarding() {
         const fields = {};
         fields.Id = this.recordid;
-        fields['Status__c'] = 'Onboarding'; 
+        fields['Status__c'] = 'Onboarding';
         fields['Onboarding_Officer__c'] = this.amlOfficer;
+
         const recordInput = { fields };
-    
-        updateRecord(recordInput)
-          .then(() => {
-            this.showToast('', labelOfOnboardingStarted, 'Success');
-            setTimeout(() => {
-              location.reload();
-            }, 1500);
-          })
-          .catch(error => {
-            this.showToast('Error', labelOfErrorShowToast, 'Error');
-            saveLWCLog({ id : this.recordid,
-              description: JSON.stringify(error)})
-          });
+            updateRecord(recordInput)
+            .then(() => {
+                this.showToast('', labelOfOnboardingStarted, 'Success');
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            })
+            .catch(error => {
+                this.showToast('Error', labelOfErrorShowToast, 'Error');
+                saveLWCLog({ id : this.recordid,
+                            description: JSON.stringify(error)})
+            });
     }
 
     sendCommentToCompliance() {
@@ -376,6 +484,25 @@ export default class DynamicModalWindow extends LightningElement {
                 this.showToast('', labelOfAnswerSuccessfulySent, 'Success');
                 setTimeout(() => {
                     location.reload();
+                }, 1500);
+            }
+            this.error = undefined;
+        }).catch((error) => {
+            this.showToast('Error', labelOfErrorShowToast, 'Error');
+            saveLWCLog({ id : this.recordid,
+              description: JSON.stringify(error)})
+        });
+    }
+
+    handleCopyWebsiteData() {
+        copyWebsiteData({
+            recordId: this.recordid,
+            idOfWebsite: this.website
+        }).then((result) => {
+            if(result){
+                this.showToast('', 'The date was successfully copied!', 'Success');
+                setTimeout(() => {
+                    window.location.reload();
                 }, 1500);
             }
             this.error = undefined;

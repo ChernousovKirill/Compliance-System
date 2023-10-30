@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OtherFieldIsRequired</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+  AND(
+    INCLUDES(Integration_Type__c, &quot;Other (Specify)&quot;),
+    ISBLANK(Other_Integration_Type__c)
+  ),
+  AND(
+    INCLUDES(Product__c, &quot;Other (Specify)&quot;),
+    ISBLANK(Other_Product__c)
+  )
+)</errorConditionFormula>
+    <errorMessage>One of the fields of the Integration Information section contains the Other value and the specifying field is not filled.</errorMessage>
+</ValidationRule>

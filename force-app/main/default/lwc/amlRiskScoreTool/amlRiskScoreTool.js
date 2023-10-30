@@ -30,6 +30,7 @@ export default class AmlRiskScoreTool extends LightningElement {
     @api amlOfficerLabel = labelOfAmlOfficer;
     @api finalRiskLevelLabel = labelOfFinalRiskLevel;
     @api amlRiskScoreLabel = labelOfAmlRiskScore;
+    @api isSaveDisabled = false;
 
     @track totalScore = 0;
     @track levelByScorecard;
@@ -43,6 +44,8 @@ export default class AmlRiskScoreTool extends LightningElement {
     @track apiNameOfReason = 'Reason_of_AML__c';
     @track apiNameOfDate = 'Date_of_AML__c';
     @track apiNameOfOfficer = 'AML_Officer__c';
+    @track apiNameOfComment = 'AML_Tool_Comment__c';
+
     @track apiNameOfReasonPicklist = 'Customer__c.Reason_of_AML__c';
     @track idOfRecordType;
     @track optionsOfReasonAmlRiskForm = [];
@@ -52,6 +55,7 @@ export default class AmlRiskScoreTool extends LightningElement {
     @track finalRiskLevel;
     @track dateOfAmlTool;
     @track amlOfficer;
+    @track commentFromCompliance;
 
     @wire(getAmlRiskScoreSection, {})
     wiredAmlRiskScoreSections({ error, data }) {
@@ -76,6 +80,9 @@ export default class AmlRiskScoreTool extends LightningElement {
                     this.valueOfReason = customer[this.apiNameOfReason] != null ? customer[this.apiNameOfReason] : 'Scorecard (default)';
                     this.dateOfAmlTool = customer[this.apiNameOfDate] != null ? customer[this.apiNameOfDate] : '';
                     this.amlOfficer = customer[this.apiNameOfOfficer] != null ? customer[this.apiNameOfOfficer] : '';
+                    this.commentFromCompliance = customer[this.apiNameOfComment] != null ? customer[this.apiNameOfComment] : '';
+                    this.isSaveDisabled = customer[this.apiNameOfDate] == null || customer[this.apiNameOfOfficer] ? true : false;
+
                     this.sections = amlRiskScoreSections.map((section) => {
                         const fieldsWithDefaults = section.fields.map((field) => {
                             const selectedOption = field.options.find((option) => option.value === field.defaultValue);
@@ -172,6 +179,10 @@ export default class AmlRiskScoreTool extends LightningElement {
         this.updateScorecardRiskLevel();
     }
 
+    handleCommentBoxChange(event) {
+        this.commentFromCompliance = event.detail.value;
+    }
+
     updateScorecardRiskLevel() {
         if (1 <= this.totalScore && this.totalScore <= 45) {
             this.levelByScorecard = 'Low Risk';
@@ -190,10 +201,12 @@ export default class AmlRiskScoreTool extends LightningElement {
 
     handleDateOfAmlFrom(event) {
         this.dateOfAmlTool = event.detail.value;
+        this.isSaveDisabled = this.dateOfAmlTool == null || this.amlOfficer  ? true : false;
     }
 
     handleAmlOfficer(event) {
         this.amlOfficer = event.detail.value;
+        this.isSaveDisabled = this.amlOfficer == null || this.dateOfAmlTool ? true : false;
     }
 
     updateFinalRiskLevel() {
@@ -221,6 +234,7 @@ export default class AmlRiskScoreTool extends LightningElement {
         updatedFields.push({apiNameOfField: 'Score__c', value: this.totalScore});
         updatedFields.push({apiNameOfField: 'Date_of_AML__c', value: this.dateOfAmlTool});
         updatedFields.push({apiNameOfField: 'AML_Officer__c', value: this.amlOfficer});
+        updatedFields.push({apiNameOfField: 'AML_Tool_Comment__c', value: this.commentFromCompliance});
     
         const fieldsForUpdate = {};
         updatedFields.forEach((field) => {
@@ -232,6 +246,7 @@ export default class AmlRiskScoreTool extends LightningElement {
             .then(() => {
                 this.handleClose();
                 this.showToast('', labelOfSuccessfullySavedForm, 'Success');
+                window.location.reload();
             })
             .catch((error) => {
                 this.showToast('Error', labelOfErrorShowToast, 'Error');

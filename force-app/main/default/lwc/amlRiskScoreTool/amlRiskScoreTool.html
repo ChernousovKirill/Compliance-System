@@ -20,7 +20,7 @@
                     <div class="slds-align_absolute-center"  >
                         <b style="margin-top: 20px;">{amlOfficerLabel}:</b>
                         <lightning-combobox style="margin-top: 20px;margin-left: 20px;"
-                                            name={amlOfficer}
+                                            name="AML Officer"
                                             value={amlOfficer}
                                             onchange={handleAmlOfficer}
                                             variant="label-hidden"
@@ -75,15 +75,20 @@
                         <b style="margin-top: 20px;margin-left: 20px;">{levelByScorecard}</b>
                     </div>
 
-                    <div class="slds-align_absolute-center"  >
-                        <b style="margin-top: 20px;">{finalRiskLevelLabel}:</b>
-                        <b style="margin-top: 20px;margin-left: 20px;">{finalRiskLevel}</b>
+                    <div style="margin-top: 20px;" class="slds-align_absolute-center"  >
+                        <b >{finalRiskLevelLabel}:</b>
+                        <b style="margin-left: 20px;">{finalRiskLevel}</b>
+                    </div>
+
+                    <div class="slds-align_absolute-center slds-m-vertical_medium"  >
+                        <legend class="slds-form-element__legend slds-form-element__label ">Comment Box</legend>
+                        <lightning-textarea name="Comment Box" value={commentFromCompliance} variant="label-hidden" onchange={handleCommentBoxChange}></lightning-textarea>
                     </div>
                       
                 </div>
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_neutral" onclick={handleClose} title="Cancel">{cancelButtonLabel}</button>
-                    <button class="slds-button slds-button_brand" onclick={updateCustomerAndClose} title="Save">Save</button>
+                    <button class="slds-button slds-button_brand" disabled={isSaveDisabled} onclick={updateCustomerAndClose} title="Save">Save</button>
                 </footer>
             </div>
         </section>

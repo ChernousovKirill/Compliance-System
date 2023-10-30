@@ -1,8 +1,8 @@
 public class LogService {
 
-    public static void saveApexLog (String name, String type, Datetime startDateTime){
+    public static void saveApexLog (String name, String type, Datetime startDateTime, String description){
 
-        Database.insert(getApexLogForInsert(name, type, startDateTime), false);
+        Database.insert(getApexLogForInsert(name, type, startDateTime, description), false);
 
     }
 
@@ -11,12 +11,13 @@ public class LogService {
         Database.insert(getLWCLogForInsert(id, description));
     }
 
-    public static Log__c getApexLogForInsert (String name, String type, Datetime startDateTime){
+    public static Log__c getApexLogForInsert (String name, String type, Datetime startDateTime, String description){
 
         Log__c logForInsert = new Log__c(
                 Name = name,
                 Type__c = type,
-                Start_Date_Time__c = startDateTime
+                Start_Date_Time__c = startDateTime,
+                Description__c = description
         );
 
         return logForInsert;

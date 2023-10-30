@@ -1,0 +1,166 @@
+<template>
+    <lightning-card>
+        <template for:each={sections} for:item="section">
+            <div key={section} class="slds-section slds-is-open" data-title={section.label}
+                title={section.label}>
+                <h3 class="slds-section__title">
+                    <button aria-controls="expando-unique-id" title={section.label}
+                        class="slds-button slds-section__title-action"
+                        onclick={toggleSection}>
+                        <lightning-icon icon-name="utility:switch" size="x-small"
+                                        class="slds-section__title-action-icon slds-button__icon_left"
+                                        alternative-text="button icon"></lightning-icon>
+                        {section.label}
+                    </button>
+                </h3>
+            </div>
+            <div key={section.label} class="slds-grid slds-wrap">
+                <template if:true={section.isMonitoringSection}>
+                    <div  class="slds-col slds-size_1-of-1 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <legend class="slds-form-element__legend slds-form-element__label">Last Monitoring Date</legend>
+                        <lightning-input style="max-width:200px;" value={valueOfLastMonitoringDate} data-fieldapi="Last_Monitoring_Date__c" onchange={handleMonitoringFieldChange} type="date" varian="label-hidden"></lightning-input>                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <legend class="slds-form-element__legend slds-form-element__label" >Next Monitoring Date</legend>
+                        <lightning-input style="max-width:200px;" value={valueOfNextMonitoringDate} data-fieldapi="Next_Monitoring_Date__c" onchange={handleMonitoringFieldChange} type="date" varian="label-hidden"></lightning-input>                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <legend class="slds-form-element__legend slds-form-element__label">Level</legend>
+                        <lightning-combobox 
+                                        style="max-width:200px;"
+                                        name="Level"
+                                        variant="label-hidden"
+                                        options={optionsOfLevel}
+                                        onchange={handleMonitoringFieldChange}
+                                        data-fieldapi="Level__c"
+                                        value={valueOfLevel}
+                                        ></lightning-combobox>
+                    </div>
+                    
+                    <div style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <b>Next Date</b>
+                    </div>
+                    <div key={field.idOfMonitoring} class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <b>Notify Before (days)</b>
+                    </div>
+                    <template for:each={section.fields} for:item="field">
+                        <div key={field.idOfMonitoring} style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                            <div class="slds-m-vertical_medium">
+                                <b>{field.typeOfMonitoring}</b> 
+                            </div>                        
+                        </div>
+                        <div key={field.idOfMonitoring} class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                            <lightning-input data-fieldapi="Next_Date__c" data-id={field.idOfMonitoring} disabled={field.readOnly} style="max-width:200px;" value={field.monitoringNextDate} onchange={handleChangeMonitoringType} type="date" varian="label-hidden"></lightning-input>                        
+                        </div>
+                        <div key={field.idOfMonitoring} class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                            <lightning-input data-fieldapi="Notify_Before_days__c" class="slds-m-vertical_medium" data-id={field.idOfMonitoring} style="max-width:200px;" variant="label-hidden" type="number" onchange={handleChangeMonitoringType} value={field.monitoringNotifyBefore}></lightning-input>
+                        </div>
+                    </template>
+                </template>
+                <template if:true={section.isPeriodKycSection}>
+                    
+                    <div style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <div class="slds-m-vertical_small">
+                            <b>Monitoring Status</b>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <lightning-combobox 
+                                        style="max-width:200px;"
+                                        name="Status"
+                                        options={optionsOfMonitoringStatus}
+                                        value={valueOfMonitoringStatus}
+                                        disabled="true"
+                                        variant="label-hidden"
+                                        ></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                    </div>
+                    <div style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <div class="slds-m-vertical_large">
+                            <b>Monitoring Started Date</b>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <lightning-input style="max-width:200px;" value={valueOfMonitoringStartedDate} data-fieldapi="Monitoring_Started_Date__c" onchange={handleMonitoringFieldChange} type="date" varian="label-hidden"></lightning-input>                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                    </div>
+                    
+                    <div style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <div class="slds-m-vertical_small">
+                            <b>Reason</b>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <lightning-combobox 
+                                        style="max-width:200px;"
+                                        name="Level"
+                                        options={optionsOfReason}
+                                        value={valueOfReason}
+                                        onchange={handleMonitoringFieldChange}
+                                        data-fieldapi="Reason__c"
+                                        variant="label-hidden"
+                                        ></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <lightning-textarea style="max-width:300px;" value={valueOfReasonComment} onchange={handleMonitoringFieldChange} data-fieldapi="Reason_Comment__c" variant="label-hidden"></lightning-textarea>
+                    </div>
+                    <div style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <b>Status</b>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                        <b>Comment</b>
+                    </div>
+                    <template for:each={section.fields} for:item="field">
+                        <div key={field.idOfMonitoring} style="max-width:200px;" class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                            <div class="slds-m-vertical_small">
+                                <b>{field.typeOfMonitoring}</b> 
+                            </div>
+                        </div>
+                        <div key={field.idOfMonitoring} class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                            <lightning-combobox
+                                            style="max-width:300px;"
+                                            name="Status"
+                                            data-fieldapi="Status__c"
+                                            data-id={field.idOfMonitoring}
+                                            variant="label-hidden"
+                                            options={field.options}
+                                            onchange={handleChangeMonitoringType}
+                                            value={field.statusOfMonitoring}
+                                            ></lightning-combobox> 
+                        </div>
+                        <div key={field.idOfMonitoring} class="slds-col slds-size_1-of-3 slds-m-vertical_x-small slds-p-horizontal_small">
+                            <lightning-textarea data-fieldapi="Comment__c" onchange={handleChangeMonitoringType} value={field.commentOfMonitoring} data-id={field.idOfMonitoring} style="max-width:300px;" variant="label-hidden"></lightning-textarea>
+                        </div>
+                    </template>
+                    <div  class="slds-col slds-size_1-of-1 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <legend class="slds-form-element__legend slds-form-element__label">Monitoring Officer</legend>
+                        <!-- <c-dynamic-lookup-for-search field={field}
+                                                    onvalueselected={handleSelectLookup}
+                                                    recordid={recordId}
+                        ></c-dynamic-lookup-for-search>                        -->
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <legend class="slds-form-element__legend slds-form-element__label" >Monitoring Completed</legend>
+                        <lightning-input style="max-width:200px;" value={valueOfMonitoringCompletedDate} data-fieldapi="Monitoring_Completed__c" onchange={handleMonitoringFieldChange}  type="date" varian="label-hidden"></lightning-input>                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-vertical_x-small slds-p-horizontal_small" >
+                        <legend class="slds-form-element__legend slds-form-element__label">Notes</legend>
+                        <lightning-textarea style="max-width:300px;" value={valueOfNotes} onchange={handleMonitoringFieldChange} data-fieldapi="Notes__c" variant="label-hidden"></lightning-textarea>
+                    </div>
+                    <template if:true={showSaveCancelButtons}>
+                        <div class="slds-align_absolute-center slds-p-top_medium">
+                            <button class="slds-button slds-button_neutral" onclick={handleCancelEditForm} title="Cancel">{labelOfCancelButton}</button>
+                            <button class="slds-button slds-button_brand" onclick={handleSaveForm} title="Save">{labelOfSaveButton}</button>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

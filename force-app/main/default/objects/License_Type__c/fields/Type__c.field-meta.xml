@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AML/KYC policy</fullName>
+                <default>false</default>
+                <label>AML/KYC policy</label>
+            </value>
+            <value>
+                <fullName>CDD procedure</fullName>
+                <default>false</default>
+                <label>CDD procedure</label>
+            </value>
+            <value>
+                <fullName>Sanction/PEP screening policy</fullName>
+                <default>false</default>
+                <label>Sanction/PEP screening policy</label>
+            </value>
+            <value>
+                <fullName>Transaction Monitoring policy</fullName>
+                <default>false</default>
+                <label>Transaction Monitoring policy</label>
+            </value>
+            <value>
+                <fullName>Risk Appetite Statement</fullName>
+                <default>false</default>
+                <label>Risk Appetite Statement</label>
+            </value>
+            <value>
+                <fullName>EWRA</fullName>
+                <default>false</default>
+                <label>EWRA</label>
+            </value>
+            <value>
+                <fullName>Compliance Audit Report</fullName>
+                <default>false</default>
+                <label>Compliance Audit Report</label>
+            </value>
+            <value>
+                <fullName>CV of Compliance Officer</fullName>
+                <default>false</default>
+                <label>CV of Compliance Officer</label>
+            </value>
+            <value>
+                <fullName>Organizational Structure</fullName>
+                <default>false</default>
+                <label>Organizational Structure</label>
+            </value>
+            <value>
+                <fullName>Agreement with KYC vendor</fullName>
+                <default>false</default>
+                <label>Agreement with KYC vendor</label>
+            </value>
+            <value>
+                <fullName>Agreement with Sanction Screening vendor</fullName>
+                <default>false</default>
+                <label>Agreement with Sanction Screening vendor</label>
+            </value>
+            <value>
+                <fullName>Agreement with Crypto Transaction Monitoring vendor</fullName>
+                <default>false</default>
+                <label>Agreement with Crypto Transaction Monitoring vendor</label>
+            </value>
+            <value>
+                <fullName>Full List of available Cryptocurrencies</fullName>
+                <default>false</default>
+                <label>Full List of available Cryptocurrencies</label>
+            </value>
+            <value>
+                <fullName>Agreement with Liquidity provider (if Applicable)</fullName>
+                <default>false</default>
+                <label>Agreement with Liquidity provider (if Applicable)</label>
+            </value>
+            <value>
+                <fullName>Business Plan (for start ups)</fullName>
+                <default>false</default>
+                <label>Business Plan (for start ups)</label>
+            </value>
+            <value>
+                <fullName>Disclaimer within the website about age limits, human trafficking, escorting and prostitution prevention</fullName>
+                <default>false</default>
+                <label>Disclaimer within the website about age limits, human trafficking, escorting and prostitution prevention</label>
+            </value>
+            <value>
+                <fullName>Agreement with the main partners</fullName>
+                <default>false</default>
+                <label>Agreement with the main partners</label>
+            </value>
+            <value>
+                <fullName>Proof of Insurance</fullName>
+                <default>false</default>
+                <label>Proof of Insurance</label>
+            </value>
+            <value>
+                <fullName>Content Monitoring policy/procedure</fullName>
+                <default>false</default>
+                <label>Content Monitoring policy/procedure</label>
+            </value>
+            <value>
+                <fullName>Policy about age limits, human trafficking, child pornography, escorting and prostitution prevention</fullName>
+                <default>false</default>
+                <label>Policy about age limits, human trafficking, child pornography, escorting and prostitution prevention</label>
+            </value>
+            <value>
+                <fullName>1 Example</fullName>
+                <default>false</default>
+                <label>1 Example</label>
+            </value>
+            <value>
+                <fullName>2 Example</fullName>
+                <default>false</default>
+                <label>2 Example</label>
+            </value>
+            <value>
+                <fullName>3 Example</fullName>
+                <default>false</default>
+                <label>3 Example</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

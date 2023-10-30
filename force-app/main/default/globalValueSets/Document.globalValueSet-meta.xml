@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Copy</fullName>
+        <default>false</default>
+        <label>Copy</label>
+    </customValue>
+    <customValue>
+        <fullName>Excerpt</fullName>
+        <default>false</default>
+        <label>Excerpt</label>
+    </customValue>
+    <customValue>
+        <fullName>Certified</fullName>
+        <default>false</default>
+        <label>Certified</label>
+    </customValue>
+    <customValue>
+        <fullName>Apostilled</fullName>
+        <default>false</default>
+        <label>Apostilled</label>
+    </customValue>
+    <customValue>
+        <fullName>N/A</fullName>
+        <default>false</default>
+        <label>N/A</label>
+    </customValue>
+    <masterLabel>Document</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

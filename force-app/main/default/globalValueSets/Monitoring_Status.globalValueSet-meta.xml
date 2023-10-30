@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Pending</fullName>
+        <default>false</default>
+        <label>Pending</label>
+    </customValue>
+    <customValue>
+        <fullName>Verified</fullName>
+        <default>false</default>
+        <label>Verified</label>
+    </customValue>
+    <customValue>
+        <fullName>Postponed</fullName>
+        <default>false</default>
+        <label>Postponed</label>
+    </customValue>
+    <customValue>
+        <fullName>Rejected</fullName>
+        <default>false</default>
+        <label>Rejected</label>
+    </customValue>
+    <customValue>
+        <fullName>Not Started</fullName>
+        <default>false</default>
+        <label>Not Started</label>
+    </customValue>
+    <masterLabel>Monitoring Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

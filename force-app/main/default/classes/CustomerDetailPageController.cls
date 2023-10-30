@@ -13,26 +13,22 @@ public class CustomerDetailPageController {
         Map<String, Object> mapOfStringByObject = new Map<String, Object>();
         Boolean isAMLRiskAssessmentCheckboxHide = false;
 
-        Customer__c recordOfCustomer = [SELECT AML_Risk_Level__c, AML_Risk_Matrix_ver__c, Score__c, CDD_Level__c, SOW_SOF__c, Enhanced_Periodic_KYC__c, Compliance_policies__c,
-                                               Enhanced_Webshield__c, License__c, Enhnaced_Sanction_Screening__c, MLRO_Approval__c, Certified_Documents__c, Enhanced_TM__c, Certified_Organizational_Chart__c,
-                                               Open_Banking_PayIns__c, Full_Reliance_WL__c, Open_Banking_PayIns_PayOuts__c, Partial_Reliance_WL__c, Acquiring_Card_Processing__c, Reseller__c, Direct_Merchant__c,
-                                               Beneficiary_Name__c, IBAN__c, Bank_Name__c, Country_Bank__c, Bank_Currency__c, Bank_Status__c, Valid_Bank__c, Overall_Concerns_Comment_Box__c, Country_Blocks__c, From_Partner__c,
-                                               Type_of_Relationships__c, Exp_Monthly_Volumes__c, DBA_Trade_Name__c, Legal_Name__c, Actual_Last_Months_Volumes__c, Legal_Form__c, Business_Industry_Activity__c, Registration_Number__c,
-                                               Detailed_Description__c, VAT_Tax_ID_Number__c, Registered_Address__c, Country_of_Incorporation__c, Date_of_Incorporation__c, Sales_Agent__c, Account_Manager__c, Status__c,
-                                               Rejected_Termination_Reason__c, Comment_Box__c, Business_Location__c, Risk_Comment_Box__c, Monthly_Turnover__c, MAX_TRX_CNT__c, AVG_TRX_CNT__c, MAX_TRX_AMT__c, MAX_Single_TRX_CNT__c,
-                                               AVG_TRX_AMT__c, MAX_Single_TRX_AMT__c, Review_Started__c,Review_Completed__c, Onboarding_Officer__c, Approved_by__c, Second_Onboarding_Officer__c, Name_Surname__c, Approved_Rejected_Date__c,
-                                               Other_Business_Industry_Activity__c
-                                        FROM Customer__c 
-                                        WHERE Id = :recordId 
-                                        LIMIT 1];
+        String fieldsForQuery = '';
+        List<ApplicationFormService.SectionWrapper> detailsPageSections = getDetailsPageSection();
+        for(ApplicationFormService.SectionWrapper section : detailsPageSections) {
+            for (ApplicationFormService.FieldWrapper field : section.fields) {
+                fieldsForQuery += field.apiNameOfField + ', ';
+            }
+        }
+        String query = 'SELECT ' + fieldsForQuery.substring(0, fieldsForQuery.length() - 2) + ' FROM Customer__c WHERE Id = :recordId LIMIT 1'; 
+        List<Customer__c> customers = Database.query(query);
+        Customer__c recordOfCustomer = customers[0];
+        mapOfStringByObject.put('recordOfCustomer', recordOfCustomer);
+        System.debug('recordOfCustomer' + recordOfCustomer.Status__c);
 
         List<ApplicationFormService.AdditionalDocumentWrapper> listOfAdditionalAMLDocuments = getAdditionalAMLDocument(recordOfCustomer.Id);
         List<ApplicationFormService.TransactionsWrapper> listOfLastMonthsTransactions = getLastMonthsTransactions(recordOfCustomer.Id);
 
-
-        mapOfStringByObject.put('recordOfCustomer', recordOfCustomer);
-
-        List<ApplicationFormService.SectionWrapper> detailsPageSections = getDetailsPageSection();
         Decimal totalScore = 0;
         for (ApplicationFormService.SectionWrapper section : detailsPageSections) {
             for (ApplicationFormService.FieldWrapper field : section.fields) {
@@ -50,7 +46,6 @@ public class CustomerDetailPageController {
                 field.areFieldsText = field.type == ConstantUtility.TEXT ? true : false;
                 field.areFieldsPicklist = field.type == ConstantUtility.PICKLIST ? true : false;
                 field.areFieldsCheckbox = field.type == ConstantUtility.CHECKBOX ? true : false;
-                field.areFieldsReference = field.type == ConstantUtility.REFERENCE ? true : false;
                 field.areFieldsTextarea = field.type == ConstantUtility.TEXTAREA ? true : false;
                 field.areFieldsListBox = field.type == ConstantUtility.LISTBOX ? true : false;
                 field.areFieldsCurrency = field.type == ConstantUtility.CURRENCY_TYPE ? true : false;
@@ -112,11 +107,7 @@ public class CustomerDetailPageController {
                 }            
             }
             section.amlAssessmentSection = section.label == ConstantUtility.AML_RISK_ASSESSMENT ? true : false;
-            section.bankAccountSection = section.label == ConstantUtility.BANK_ACCOUNTS ? true : false;
             section.lastMonthTransactionSection = section.label == ConstantUtility.LAST_MONTHS_TRANSACTIONS ? true : false;
-            if(section.bankAccountSection == true) {
-                section.listOfAttachments = FileUploadController.getUploadedAttachments(recordId, section.label);
-            }
         }
         mapOfStringByObject.put('detailsPageSections', detailsPageSections);
         mapOfStringByObject.put('isAMLRiskAssessmentCheckboxHide', isAMLRiskAssessmentCheckboxHide); 
@@ -181,12 +172,6 @@ public class CustomerDetailPageController {
                     valueOfField = Date.valueOf((String) fieldValue);
                 } else if (typeOfObject == ConstantUtility.DATE_TIME_TYPE) {
                     valueOfField = Datetime.valueOf((String) fieldValue);
-                } else if (typeOfObject == ConstantUtility.MULTIPICKLIST) {
-                    List<Object> fieldValues = (List<Object>) fieldValue;
-                    for(Object value : fieldValues) {
-                        valueOfField += value + ';' ;
-                    }
-                    String.valueOf(valueOfField).removeEnd(';');
                 } else {
                     valueOfField = fieldValue;
                 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Director_Auth_Sign_Corporate__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Director/Auth.Sign. of</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.Customer__c</field>
+            <operation>equals</operation>
+            <valueField>Corporate_KYC__c.Customer__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Corporate_KYC__c</referenceTo>
+    <relationshipLabel>Directors/Auth.Sign. KYC</relationshipLabel>
+    <relationshipName>Directors_Auth_Sign_KYC</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

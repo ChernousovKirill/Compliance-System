@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Agreement_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( Agreement_Name__c  , &apos;Other&apos;)
+&amp;&amp;
+ISBLANK( Other_Agreement__c )</errorConditionFormula>
+    <errorMessage>Please, specify other agreement name!</errorMessage>
+</ValidationRule>
