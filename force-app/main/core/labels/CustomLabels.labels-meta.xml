@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Activate_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activate</shortDescription>
+        <value>Activate</value>
+    </labels>
+    <labels>
+        <fullName>Answer_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Answer</shortDescription>
+        <value>Answer:</value>
+    </labels>
+    <labels>
+        <fullName>Answer_to_comment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Answer to comment</shortDescription>
+        <value>Answer to comment</value>
+    </labels>
+    <labels>
+        <fullName>Approve_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve</shortDescription>
+        <value>Approve</value>
+    </labels>
+    <labels>
+        <fullName>Approver</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approver:</shortDescription>
+        <value>Approver:</value>
+    </labels>
+    <labels>
+        <fullName>Assign_AML_Officer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assign AML Officer</shortDescription>
+        <value>Assign Onboarding Officer</value>
+    </labels>
+    <labels>
+        <fullName>Comment_has_been_successfully_sent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Your comment has been successfully sent to the onboarding officer</shortDescription>
+        <value>Your comment has been successfully sent to the onboarding officer</value>
+    </labels>
+    <labels>
+        <fullName>Comments</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comments</shortDescription>
+        <value>Comments:</value>
+    </labels>
+    <labels>
+        <fullName>Complete_required_fields</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please complete required fields</shortDescription>
+        <value>Please complete required fields</value>
+    </labels>
+    <labels>
+        <fullName>CopyData</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Copy Data</shortDescription>
+        <value>Copy Data</value>
+    </labels>
+    <labels>
+        <fullName>Delete_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Disconnect_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disconnect</shortDescription>
+        <value>Disconnect</value>
+    </labels>
+    <labels>
+        <fullName>Disconnection_has_been_started</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process of disconnection has been started successfully!</shortDescription>
+        <value>Process of disconnection has been started successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Edit_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Generate_PDF_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generate PDF</shortDescription>
+        <value>Generate PDF</value>
+    </labels>
+    <labels>
+        <fullName>NodaCustomSettingsConfigurationIssue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Noda_Custom_Settings configuration issue</shortDescription>
+        <value>Noda_Custom_Settings configuration issue</value>
+    </labels>
+    <labels>
+        <fullName>On_Hold_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>On Hold</shortDescription>
+        <value>On Hold</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_started</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Onboarding started successfully!</shortDescription>
+        <value>Onboarding started successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Other_Rejection_Reason</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other Rejection Reason</shortDescription>
+        <value>Other Rejection Reason</value>
+    </labels>
+    <labels>
+        <fullName>Other_Termination_Reason</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other Termination Reason</shortDescription>
+        <value>Other Termination Reason</value>
+    </labels>
+    <labels>
+        <fullName>Record_approved</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record approved successfully!</shortDescription>
+        <value>Record approved successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Record_rejected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record rejected successfully!</shortDescription>
+        <value>Record rejected successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Record_submitted_for_approval</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The record has been submitted for approval successfully!</shortDescription>
+        <value>The record has been submitted for approval successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Record_was_terminated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record was terminated successfully!</shortDescription>
+        <value>Record was terminated successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Reject_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reject</shortDescription>
+        <value>Reject</value>
+    </labels>
+    <labels>
+        <fullName>Reject_Record</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reject Record</shortDescription>
+        <value>Reject Record</value>
+    </labels>
+    <labels>
+        <fullName>SelectApprover</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select Approver</shortDescription>
+        <value>Select Approver</value>
+    </labels>
+    <labels>
+        <fullName>SelectWebsite</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select Website</shortDescription>
+        <value>Select Website</value>
+    </labels>
+    <labels>
+        <fullName>Select_AML_Officer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select AML Officer</shortDescription>
+        <value>Select AML Officer</value>
+    </labels>
+    <labels>
+        <fullName>Select_termination_reason</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please select a reason for termination</shortDescription>
+        <value>Please select a reason for termination</value>
+    </labels>
+    <labels>
+        <fullName>Send_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send</shortDescription>
+        <value>Send</value>
+    </labels>
+    <labels>
+        <fullName>Send_back_with_comment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send back with comment</shortDescription>
+        <value>Send back with comment</value>
+    </labels>
+    <labels>
+        <fullName>Sent_To_Approve_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sent To Approve</shortDescription>
+        <value>Sent To Approve</value>
+    </labels>
+    <labels>
+        <fullName>Sent_to_Approve</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sent to Approve</shortDescription>
+        <value>Sent to Approve</value>
+    </labels>
+    <labels>
+        <fullName>Show_AML_Form_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Show AML Form</shortDescription>
+        <value>Show AML Form</value>
+    </labels>
+    <labels>
+        <fullName>Something_went_wrong</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Ooops... Something went wrong! Сontact your administrator.</shortDescription>
+        <value>Ooops... Something went wrong! Сontact your administrator.</value>
+    </labels>
+    <labels>
+        <fullName>Start_Onboarding_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Onboarding</shortDescription>
+        <value>Start Onboarding</value>
+    </labels>
+    <labels>
+        <fullName>Status_changed_to_Active</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>&apos;Status changed to Active successfully!</shortDescription>
+        <value>&apos;Status changed to Active successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Status_changed_to_On_Hold</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status changed to On Hold successfully!</shortDescription>
+        <value>Status changed to On Hold successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Status_changed_to_Suspended</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status changed to Suspended successfully!</shortDescription>
+        <value>Status changed to Suspended successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Suspend_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Suspend</shortDescription>
+        <value>Suspend</value>
+    </labels>
+    <labels>
+        <fullName>Terminate_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Terminate</shortDescription>
+        <value>Terminate</value>
+    </labels>
+    <labels>
+        <fullName>Terminate_Record</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Terminate Record</shortDescription>
+        <value>Terminate Record</value>
+    </labels>
+    <labels>
+        <fullName>Termination_started_successfully</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Process of termination has been started successfully!</shortDescription>
+        <value>Process of termination has been started successfully!</value>
+    </labels>
+    <labels>
+        <fullName>Unanswered_comment_from_approver</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>You have an unanswered comment from an approver</shortDescription>
+        <value>You have an unanswered comment from an approver!</value>
+    </labels>
+    <labels>
+        <fullName>Your_answer_has_been_successfully_sent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Your answer has been successfully sent to approver</shortDescription>
+        <value>Your answer has been successfully sent to approver</value>
+    </labels>
+    <labels>
+        <fullName>addDocumentLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add document</shortDescription>
+        <value>Add document</value>
+    </labels>
+    <labels>
+        <fullName>additionalDocumentLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label</shortDescription>
+        <value>Label</value>
+    </labels>
+    <labels>
+        <fullName>cancelButton</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>corporateKycAttachmentLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Corporate KYC</shortDescription>
+        <value>Corporate KYC</value>
+    </labels>
+    <labels>
+        <fullName>documentWasDeletedLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The document was deleted successfully</shortDescription>
+        <value>The document was deleted successfully</value>
+    </labels>
+    <labels>
+        <fullName>fileUploadLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload single file up to 50 MB</shortDescription>
+        <value>Upload single file up to 50 MB</value>
+    </labels>
+    <labels>
+        <fullName>fileUploadSuccessLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Files are uploaded successfully</shortDescription>
+        <value>Files are uploaded successfully</value>
+    </labels>
+    <labels>
+        <fullName>filesUploadFailedLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The file was not uploaded due to an error</shortDescription>
+        <value>The file was not uploaded due to an error</value>
+    </labels>
+    <labels>
+        <fullName>labelOfAmlOfficer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AML Officer</shortDescription>
+        <value>AML Officer</value>
+    </labels>
+    <labels>
+        <fullName>labelOfAmlRiskScore</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AML RISK SCORE</shortDescription>
+        <value>AML RISK SCORE</value>
+    </labels>
+    <labels>
+        <fullName>labelOfAttachment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attachments</shortDescription>
+        <value>Attachments</value>
+    </labels>
+    <labels>
+        <fullName>labelOfCustomerName</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Name:</shortDescription>
+        <value>Customer Name:</value>
+    </labels>
+    <labels>
+        <fullName>labelOfDate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>labelOfFinalRiskLevel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FINAL RISK LEVEL</shortDescription>
+        <value>FINAL RISK LEVEL</value>
+    </labels>
+    <labels>
+        <fullName>labelOfSuccessfullySavedForm</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AML Risk Form has been successfully saved</shortDescription>
+        <value>AML Risk Form has been successfully saved</value>
+    </labels>
+    <labels>
+        <fullName>labelOfSuccessfullySavedRecord</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record has been successfully saved</shortDescription>
+        <value>Record has been successfully saved</value>
+    </labels>
+    <labels>
+        <fullName>newUserMessageTemplate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>newUserMessageTemplate</shortDescription>
+        <value>New User created by {0} with next values: Username - {1}, Profile - {2}, Role - {3}.</value>
+    </labels>
+    <labels>
+        <fullName>numberOfAttachmentLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>files</shortDescription>
+        <value>files</value>
+    </labels>
+    <labels>
+        <fullName>oneAMLFormActiveLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Only one AML Form can be active!</shortDescription>
+        <value>Only one AML Form can be active!</value>
+    </labels>
+    <labels>
+        <fullName>saveButtonLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>theDataWasSuccessfullyCopied</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The data was successfully copied!</shortDescription>
+        <value>The data was successfully copied!</value>
+    </labels>
+    <labels>
+        <fullName>toastFailedLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FAILED</shortDescription>
+        <value>FAILED</value>
+    </labels>
+    <labels>
+        <fullName>updateSalesforceLicenseAmount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>updateSalesforceLicenseAmount</shortDescription>
+        <value>Number of available licenses:</value>
+    </labels>
+    <labels>
+        <fullName>updateUserIsActiveValue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>updateUserIsActiveValue</shortDescription>
+        <value>User isActive has changed from  {0} to {1};</value>
+    </labels>
+    <labels>
+        <fullName>updateUserMessageTemplate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>updateUserMessageTemplate</shortDescription>
+        <value>User - {0} has been updated by {1} with next values:</value>
+    </labels>
+    <labels>
+        <fullName>updateUserProfileValue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>updateUserProfileValue</shortDescription>
+        <value>User Profile has changed from  {0} to {1};</value>
+    </labels>
+    <labels>
+        <fullName>updateUserRoleValue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>updateUserRoleValue</shortDescription>
+        <value>User Role has changed from  {0} to {1};</value>
+    </labels>
+    <labels>
+        <fullName>valueLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Value</shortDescription>
+        <value>Value</value>
+    </labels>
+    <labels>
+        <fullName>weeklyLicenseReminder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>weeklyLicenseReminder</shortDescription>
+        <value>Monthly reminder! The balance of Salesforce licenses is</value>
+    </labels>
+    <labels>
+        <fullName>newDigitalLeadEmail</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>newDigitalLeadEmail</shortDescription>
+        <value>&lt;b&gt;Dear colleague,&lt;/b&gt;&lt;br&gt;A new  digital lead named &lt;b&gt;{0} {1}&lt;/b&gt; has been assigned to {2}&lt;br&gt;Please click on the following &lt;a href=&quot;{3}&quot;&gt;link&lt;/a&gt; to review this lead.</value>
+    </labels>
+    <labels>
+        <fullName>newDigitalLeadSubject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>newDigitalLeadSubject</shortDescription>
+        <value>New digital lead has been assigned to manager!</value>
+    </labels>
+    <labels>
+        <fullName>newDigitalLeadTemplate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>newDigitalLeadTemplate</shortDescription>
+        <value>New Digital Lead is here!&lt;br/&gt;*Name*: {0}&lt;br/&gt;*Surname*: {1}&lt;br/&gt;*Email*: {2}&lt;br/&gt;*Phone*: {3}&lt;br/&gt;*Company Name*: {4}&lt;br/&gt;*Website*: {5}&lt;br/&gt;*Score*: {15}&lt;br/&gt;*Company Size*: {6}&lt;br/&gt;*Country*: {7}&lt;br/&gt;*Payments Volume*: {8}&lt;br/&gt;*Comment*: {9}&lt;br/&gt;*Preferred Services*: {10}&lt;br/&gt;*Utm Source*: {11}&lt;br/&gt;*Utm Medium*: {12}&lt;br/&gt;*Utm Campaign*: {13}&lt;br/&gt;
+Please click on the following &lt;{14}| *link*&gt; to review this lead.</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Negotiation</fullName>
+        <default>false</default>
+        <label>Negotiation</label>
+    </customValue>
+    <customValue>
+        <fullName>Meeting</fullName>
+        <default>false</default>
+        <label>Meeting</label>
+    </customValue>
+    <customValue>
+        <fullName>Agreement</fullName>
+        <default>false</default>
+        <label>Agreement</label>
+    </customValue>
+    <customValue>
+        <fullName>Integration</fullName>
+        <default>false</default>
+        <label>Integration</label>
+    </customValue>
+    <customValue>
+        <fullName>Ready For Live</fullName>
+        <default>false</default>
+        <label>Ready For Live</label>
+    </customValue>
+    <customValue>
+        <fullName>In Live</fullName>
+        <default>false</default>
+        <label>In Live</label>
+    </customValue>
+    <customValue>
+        <fullName>Closed Lost</fullName>
+        <default>false</default>
+        <label>Closed Lost</label>
+    </customValue>
+    <masterLabel>Opportunity Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

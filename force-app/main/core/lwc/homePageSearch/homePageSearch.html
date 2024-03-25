@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Record Search">
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <lightning-layout-item size="4" padding="around-small">
+                <lightning-input type="text" label="Enter key to search"
+                    value={searchKey} 
+                    onchange={handleSearchKey}> 
+                </lightning-input>
+            </lightning-layout-item >
+
+            <lightning-layout-item size="2" padding="around-small">
+                <lightning-button label="Search" variant="brand" onclick={searchRecordHandler}>
+
+                </lightning-button>
+            </lightning-layout-item>
+            <template if:true={isRecordsVisible}>
+                <lightning-layout-item size="12" padding="around-small">
+                    <b>Accounts:</b>
+                    <div class="slds-m-vertical_small">
+                        <template lwc:if={isAccountVisible}> 
+                            <lightning-datatable key-field="id" hide-checkbox-column="true" data={accounts} columns ={accountColumns}> 
+                            </lightning-datatable>
+                        </template>
+                        <template lwc:else> 
+                            <div style="color: red;">Accounts not found!</div>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <b>Leads:</b>
+                    <div class="slds-m-vertical_small">
+                        <template lwc:if={isLeadVisible}> 
+                            <lightning-datatable key-field="id" hide-checkbox-column="true" data={leads} columns ={leadColumns}> 
+                            </lightning-datatable>
+                        </template>
+                        <template lwc:else> 
+                            <div style="color: red;">Leads not found!</div>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </lightning-card>
+</template>

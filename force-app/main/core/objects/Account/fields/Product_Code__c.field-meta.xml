@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Code__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( INCLUDES ( Product__c, &quot;Open Banking pay-ins&quot; ), &quot;OBPI; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;Open Banking pay-outs&quot; ), &quot;OBPO; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;Card pay-ins&quot; ), &quot;CCPI; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;Card pay-outs&quot; ), &quot;CCPO; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;Payment links&quot; ), &quot;PMLK; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;Sign in via Bank&quot; ), &quot;SIVB; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;LTV prediction&quot; ), &quot;PLTV; &quot;,null ) &amp;
+IF ( INCLUDES ( Product__c , &quot;Other (specify)&quot; ), &quot;OTHR; &quot;,null )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Product Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,30 @@
+<messaging:emailTemplate subject="New digital lead has been assigned to you!" recipientType="Lead" relatedToType="Lead">
+  <messaging:htmlEmailBody >
+    <html lang="en">
+      <head>
+      <title>Noda Template</title>
+      </head>
+      <body style="width:600px; background-color:#F5F5F5">
+            <c:NodaLetterHeader />
+              <div style="width: 518px; height: 641px; margin: 35px 44px 30px 38px;">
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; line-height: 26px; letter-spacing: -0.04em; text-align: left;">
+                  Dear colleague,
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                    A new  digital lead named <b>{!RelatedTo.Name}</b> has been assigned to {!RelatedTo.OwnerFullName__c}!                  
+                </div>
+                <div style="margin: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -0.03em;">
+                    Please click on the following &nbsp; <apex:outputlink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+relatedTo.Id}">link</apex:outputlink>  to review this lead. 
+                </div>
+              </div>
+      </body>
+    </html>
+  </messaging:htmlEmailBody>
+<messaging:plainTextEmailBody >
+    Dear {!RelatedTo.OwnerFullName__c},
+    A new  digital lead named <b>{!RelatedTo.Name}</b> has been assigned to you!  
+    Please click on the following link to review this lead. 
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>
+
+

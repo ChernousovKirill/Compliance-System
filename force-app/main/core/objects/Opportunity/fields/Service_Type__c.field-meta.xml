@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Service Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Noda Go</fullName>
+                <default>false</default>
+                <label>Noda Go</label>
+            </value>
+            <value>
+                <fullName>Noda Buffet</fullName>
+                <default>false</default>
+                <label>Noda Buffet</label>
+            </value>
+            <value>
+                <fullName>Pay In</fullName>
+                <default>false</default>
+                <label>Pay In</label>
+            </value>
+            <value>
+                <fullName>Pay Out</fullName>
+                <default>false</default>
+                <label>Pay Out</label>
+            </value>
+            <value>
+                <fullName>Payment links</fullName>
+                <default>false</default>
+                <label>Payment links</label>
+            </value>
+            <value>
+                <fullName>Trusted Payments</fullName>
+                <default>false</default>
+                <label>Trusted Payments</label>
+            </value>
+            <value>
+                <fullName>Cards</fullName>
+                <default>false</default>
+                <label>Cards</label>
+            </value>
+            <value>
+                <fullName>KYW</fullName>
+                <default>false</default>
+                <label>KYW</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
